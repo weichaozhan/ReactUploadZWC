@@ -38,11 +38,13 @@ webpackConfig.plugins.push(new HtmlWebpackPlugin({
   minify: true,
 }));
 
-module.exports = {
+const configDev = {
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: port
+    contentBase: path.join(__dirname, 'lib'),
+    port: port,
+    // overlay: true
   },
   ...webpackConfig
 };
+
+module.exports = configDev;

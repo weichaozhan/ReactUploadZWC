@@ -1,4 +1,19 @@
 .wrapper {
+  display: inline-block;
   color: #fff;
-  background-color: #1890ff;
+}
+
+.button-upload {
+  padding: 6px 10px;
+  font-size: 14px;
+  background: #1890ff;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background: #18a1ff;
+  }
+}
+
+.file-input {
+  display: none;
 }

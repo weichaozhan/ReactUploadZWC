@@ -1,5 +1,7 @@
 module.exports = {
   'extends': [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'alloy',
     'alloy/react', 
     'alloy/typescript'
@@ -14,7 +16,7 @@ module.exports = {
     'ecmaVersion': 7,
     'sourceType': 'module',
     'ecmaFeatures': {
-        'jsx': true,
+      'jsx': true,
     }
   },
   'plugins': [
@@ -27,14 +29,18 @@ module.exports = {
     }
   },
   'rules': {
-    'complexity': 'off',
+    'semi': ['error', 'always'], 
+    'semi-style': ['error', 'last'],
+    'quotes': ['error', 'single'],
+    'no-void': 'off',
+    '@typescript-eslint/no-invalid-void-type': 'off',
+    '@typescript-eslint/no-invalid-this': 'off',
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
     'react/jsx-indent': ['error', 2],
     'react/jsx-indent-props': ['error', 2],
     '@typescript-eslint/indent': ['error', 2, { 'SwitchCase': 1, 'flatTernaryExpressions': true }],
     '@typescript-eslint/prefer-function-type': 'off',
-    '@typescript-eslint/prefer-for-of': 'off',
-    'react/no-unsafe': 'off',
+    '@typescript-eslint/prefer-for-of': 'off'
   }
 };

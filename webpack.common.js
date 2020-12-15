@@ -1,6 +1,7 @@
-const webpack = require('webpack'); //访问内置的插件
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const mainEntry = ['./src/Main.tsx'];
 
@@ -12,27 +13,12 @@ if (env === 'production') {
 }
 
 module.exports = {
-  mode: 'environment',
+  mode: env,
   entry: {
     main: mainEntry,
   },
   module: {
     rules: [
-      {
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
-        enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: require.resolve('react-dev-utils/eslintFormatter'),
-              eslintPath: require.resolve('eslint'),
-            },
-            loader: require.resolve('eslint-loader')
-          }
-        ],
-        exclude: /(node_modules|bower_components|lib)/,
-        include: path.resolve(__dirname, 'src')
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
@@ -54,6 +40,7 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
+              configFile: env === 'production' ? path.resolve(__dirname, './tsconfig.build.json') : path.resolve(__dirname, './tsconfig.json'),
               compilerOptions: {
                 noEmit: false,
               }
@@ -62,7 +49,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css)$/,
         exclude: /(node_modules|bower_components)/,
         use: [
           {
@@ -80,8 +67,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.(css|scss)$/,
-        exclude: /(src)/,
+        test: /\.(scss)$/,
+        exclude: /(node_modules|bower_components)/,
         use: [
           {
             loader: 'style-loader'
@@ -98,7 +85,9 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              javascriptEnabled: true
+              sassOptions: {
+                javascriptEnabled: true
+              }
             }
           }
         ]
@@ -127,6 +116,12 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx', 'json']
   },
   plugins: [
+    new ESLintPlugin({
+      formatter: require.resolve('react-dev-utils/eslintFormatter'),
+      eslintPath: require.resolve('eslint'),
+      exclude: ['node_modules', 'bower_components', 'lib'],
+      extensions: ['ts', 'tsx', 'mjs', 'js', 'jsx']
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ids.HashedModuleIdsPlugin()

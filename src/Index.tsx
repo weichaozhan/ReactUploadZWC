@@ -1,11 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 
 import styles from './index.scss';
 
-const App: FC = () => {
+const Upload: FC = () => {
+  const fileLabel: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
+
   return <div className={styles['wrapper']} >
-    App
+    <label className={styles['button-upload']} >
+      上传文件
+      <input ref={fileLabel} className={styles['file-input']} type="file" onChange={e => {
+        console.log(e.target.files);
+      }} />
+    </label>
   </div>;
 };
 
-export default App;
+export default Upload;

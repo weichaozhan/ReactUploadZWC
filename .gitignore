@@ -3,3 +3,6 @@ yarn.lock
 package-lock.json
 **/*/yarn.lock
 **/*/package-lock.json
+coverage
+**/*/coverage
+lib

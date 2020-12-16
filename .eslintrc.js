@@ -11,6 +11,7 @@ module.exports = {
     // 这里值为 false 表示这个全局变量不允许被重新赋值，比如：
     '__DEV__': false,
     'BigInt': true,
+    'ReactUploadZWC': true
   },
   'parserOptions': {
     'ecmaVersion': 7,

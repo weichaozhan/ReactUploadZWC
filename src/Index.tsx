@@ -2,10 +2,12 @@ import React, { FC, useRef } from 'react';
 
 import styles from './Index.scss';
 
-const Upload: FC = () => {
+const Upload: FC<ReactUploadZWC.IUploadProps> = ({
+  onChange
+}) => {
   const fileLabel: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
   const changeFile = (e) => {
-    console.log('e.target.value', e.target.files);
+    onChange?.(e);
   };
   
   return <div className={styles['wrapper']} >

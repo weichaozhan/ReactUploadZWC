@@ -21,8 +21,10 @@ describe('Upload', () => {
   });
 
   test('should render without error', () => {
+    const fnChange = jest.fn();
+    
     act(() => {
-      render(<Upload />, container);
+      render(<Upload onChange={fnChange} />, container);
     });
 
     const text = container?.innerHTML;
@@ -35,5 +37,15 @@ describe('Upload', () => {
         bubbles: true
       }));
     });
+    expect(fnChange).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      for (let i = 0; i <= 6; i++) {
+        button?.dispatchEvent(new MouseEvent('change', {
+          bubbles: true
+        }));
+      }
+    });
+    expect(fnChange).toHaveBeenCalledTimes(8);
   });
 });

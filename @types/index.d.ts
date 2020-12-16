@@ -1,5 +1,5 @@
 declare namespace ReactUploadZWC {
   interface IUploadProps {
-    onChange?: (...rest: any[]) => any; 
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any; 
   }
 }

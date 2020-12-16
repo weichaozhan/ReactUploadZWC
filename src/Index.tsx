@@ -1,11 +1,24 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 
 import styles from './Index.scss';
 
-const Upload: FC<ReactUploadZWC.IUploadProps> = ({
+type TProps = ReactUploadZWC.IUploadProps;
+
+const Upload: FC<TProps> = ({
+  accept,
+  directory = true,
   onChange
 }) => {
-  const fileLabel: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
+  const fileInputFile: any = useRef(null);
+
+  useEffect(() => {
+    if (fileInputFile.current) {
+      (fileInputFile.current as (HTMLInputElement & {
+        webkitdirectory: boolean
+      })).webkitdirectory = directory;
+    }
+  }, [fileInputFile.current]);
+  
   const changeFile = (e) => {
     onChange?.(e);
   };
@@ -13,7 +26,13 @@ const Upload: FC<ReactUploadZWC.IUploadProps> = ({
   return <div className={styles['wrapper']} >
     <label className={styles['button-upload']} >
       上传文件
-      <input ref={fileLabel} className={styles['file-input']} type="file" onChange={changeFile} />
+      <input
+        accept={accept}
+        className={styles['file-input']}
+        ref={fileInputFile}
+        type="file"
+        onChange={changeFile}
+      />
     </label>
   </div>;
 };

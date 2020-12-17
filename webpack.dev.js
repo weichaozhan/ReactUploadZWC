@@ -1,6 +1,7 @@
 const webpackConfig = require('./webpack.common');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const port = process.env.PORT;
 
@@ -32,18 +33,22 @@ webpackConfig.module.rules.push({
     }
   }
 });
-webpackConfig.plugins.push(new HtmlWebpackPlugin({
-  template: './src/index.html',
-  favicon: './src/assets/images/favicon.ico',
-  minify: true,
-}));
+webpackConfig.plugins.push(
+  new HtmlWebpackPlugin({
+    template: './src/index.html',
+    favicon: './src/assets/images/favicon.ico',
+    minify: true,
+  }),
+  new FriendlyErrorsWebpackPlugin()
+);
 
 const configDev = {
   devServer: {
     contentBase: path.join(__dirname, 'lib'),
     port: port,
-    // overlay: true
+    open: true
   },
+  devtool: 'eval-source-map',
   ...webpackConfig
 };
 

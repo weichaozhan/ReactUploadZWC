@@ -7,9 +7,9 @@ const xhrMockObj = {
   readyState: 4,
   status,
   onreadystatechange: jest.fn(),
-  response: JSON.stringify({
-
-  }),
+  response: {
+    status: 500
+  },
   onload: jest.fn()
 };
 
@@ -20,24 +20,17 @@ window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
 
 setTimeout(() => {
   // @ts-ignore
-  xhrMockObj['onreadystatechange']();
   xhrMockObj['onload']();
-}, 1000);
-// function mockFetch(status: number, data?: { [key: string]: string }[]) {
-// }
-// const xhrAPI = new XHRAPI();
+});
 
-// mockFetch(200, [data]);
-      
-// const res = await xhrAPI.fetchAllRepositories();
-
-// expect(res).toEqual([data]);
 describe('http', () => {
   test('test', async () => {
     const result = await http({
       method: 'post',
       url: '/user/upload'
     });
-    console.log('result', result);
+    expect(result).toEqual({
+      status: 500
+    });
   });
 });

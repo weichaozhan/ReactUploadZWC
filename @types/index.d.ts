@@ -13,7 +13,7 @@ declare namespace ReactUploadZWC {
     (res: THttpParams): Promise;
   }
   interface IHandlerFile {
-    (file: FileList | null): any;
+    (file: File[] | FileList | null): any;
   }
   interface IUploadProps {
     accept?: string;
@@ -25,6 +25,9 @@ declare namespace ReactUploadZWC {
       [props: string]: any
     };
     fileName?: string;
-    multiple?: boolean; 
+    multiple?: boolean;
+    beforeUpload?: ((file: File, fileList: FileList) => boolean) | Promise;
+    fileList?: Object[];
+    disabled?: boolean;
   }
 }

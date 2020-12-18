@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef } from 'react';
+import cNames from 'classnames';
 
 import http from './http';
 import styles from './Index.scss';
 
 type TProps = ReactUploadZWC.IUploadProps;
-
 const Upload: FC<TProps> = ({
   accept,
   action,
@@ -12,7 +12,8 @@ const Upload: FC<TProps> = ({
   onChange,
   data,
   fileName,
-  multiple=false
+  multiple = false,
+  disabled = false
 }) => {
   const fileInputFile: any = useRef(null);
 
@@ -23,38 +24,58 @@ const Upload: FC<TProps> = ({
   }, [fileInputFile.current]);
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const files = e.target.files?.length ? [...e.target.files] : e.target.files;
     
-    onChange?.(e.target.files);
+    onChange?.(files);
     
-    if (!file) {
+    if (!files?.length) {
       return;
     }
-    if (typeof action === 'string') {
-      http({
-        method: 'post',
-        url: action,
-        file,
-        data,
-        fileName
+
+    action && Promise.allSettled([...files].map(file => {
+      if (typeof action === 'string') {
+        const result = http({
+          method: 'post',
+          url: action,
+          file,
+          data,
+          fileName
+        });
+        
+        return result;
+      } else {
+        return action(file);
+      }
+    }))
+      .then(res => {
+        console.log('res', res);
       });
-    } else {
-      action?.(file);
-    }
+
+    fileInputFile.current.value = '';
   };
   
   return <div className={styles['wrapper']} >
-    <label className={styles['button-upload']} >
-      上传文件
-      <input
-        accept={accept}
-        className={styles['file-input']}
-        ref={fileInputFile}
-        type="file"
-        onChange={changeFile}
-        multiple={multiple}
-      />
-    </label>
+    <div className={styles['wrapper-real']} >
+      <label
+        className={cNames(
+          styles['button-upload'],
+          {
+            [styles['disabled']]: disabled
+          }
+        )}
+      >
+        上传文件
+        <input
+          accept={accept}
+          className={styles['file-input']}
+          ref={fileInputFile}
+          type="file"
+          onChange={changeFile}
+          multiple={multiple}
+          disabled={disabled}
+        />
+      </label>
+    </div>
   </div>;
 };
 

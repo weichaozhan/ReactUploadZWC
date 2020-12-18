@@ -11,9 +11,19 @@ describe('Upload', () => {
   let container: Element | null;
 
   beforeEach(() => {
-    jest.clearAllMocks();
     container = document.createElement('div');
     document.body.appendChild(container);
+    const success = {
+      status: 200,
+      statusText: 'success'
+    };
+    const xhrMockObj = xhrMockClass(success);
+    // @ts-ignore
+    window.XMLHttpRequest = jest.fn().mockImplementation(() => xhrMockObj);
+    setTimeout(() => {
+      // @ts-ignore
+      xhrMockObj.onload();
+    });
   });
   afterEach(() => {
     if (container) {
@@ -21,18 +31,6 @@ describe('Upload', () => {
       container?.remove?.();
     }
     container = null;
-  });
-
-  const success = {
-    status: 200,
-    statusText: 'success'
-  };
-  const xhrMockObj = xhrMockClass(success);
-  // @ts-ignore
-  window.XMLHttpRequest = jest.fn().mockImplementation(() => xhrMockObj);
-  setTimeout(() => {
-    // @ts-ignore
-    xhrMockObj.onload();
   });
   
   test('should render without error', () => {
@@ -42,9 +40,8 @@ describe('Upload', () => {
       render(<Upload action="/user/upload" onChange={fnChange} />, container);
     });
 
-    const text = container?.innerHTML;
-    
-    expect(text).toBe('<div class="wrapper"><label class="button-upload">上传文件<input class="file-input" type="file"></label></div>');
+    const textContent = container?.textContent;
+    expect(textContent).toBe('上传文件');
   
     const button = document.querySelector('input');
     act(() => {
@@ -56,6 +53,24 @@ describe('Upload', () => {
   });
 
   test('Upload action is string', () => {
+    const fnChange = jest.fn();    
+
+    act(() => {
+      render(<Upload action="/user/upload" onChange={fnChange} />, container);
+    });
+  
+    const button = document.querySelector('input');
+    act(() => {
+      button && fireEvent.change(button, {
+        target: {
+          files: [new File(['text'], 'text.txt')],
+        },
+      });
+    });
+    expect(fnChange).toHaveBeenCalledTimes(1);
+  });
+
+  test('Upload failed', () => {
     const fnChange = jest.fn();
     
     act(() => {
@@ -63,7 +78,7 @@ describe('Upload', () => {
     });
   
     const button = document.querySelector('input');
-
+    
     act(() => {
       button && fireEvent.change(button, {
         target: {

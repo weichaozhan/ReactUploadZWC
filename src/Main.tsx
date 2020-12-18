@@ -11,6 +11,10 @@ ReactDom.render(
   <Upload
     action="http://localhost:9001/api/user/upload"
     onChange={changeFiles}
+    // beforeUpload={() => {
+
+    // }}
+    // multiple={true}
   />,
   document.getElementById('root')
 );

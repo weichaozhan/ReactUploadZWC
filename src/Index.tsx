@@ -17,11 +17,9 @@ const Upload: FC<TProps> = ({
   const fileInputFile: any = useRef(null);
 
   useEffect(() => {
-    if (fileInputFile.current) {
-      (fileInputFile.current as (HTMLInputElement & {
-        webkitdirectory: boolean
-      })).webkitdirectory = directory;
-    }
+    (fileInputFile.current as (HTMLInputElement & {
+      webkitdirectory: boolean
+    })).webkitdirectory = directory;
   }, [fileInputFile.current]);
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +30,6 @@ const Upload: FC<TProps> = ({
     if (!file) {
       return;
     }
-
     if (typeof action === 'string') {
       http({
         method: 'post',
@@ -41,8 +38,8 @@ const Upload: FC<TProps> = ({
         data,
         fileName
       });
-    } else if (action) {
-      action(file);
+    } else {
+      action?.(file);
     }
   };
   

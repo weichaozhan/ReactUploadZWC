@@ -24,12 +24,12 @@ const http:ReactUploadZWC.IHttp = (params) => {
 
     xhr.open(method, url, params.async ?? true);
     xhr.onload = () => {
-      resolve(xhr.response);
+      if (xhr.status === 200) {
+        resolve(xhr.response);
+      } else {
+        reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
+      }
     };
-    xhr.onerror = (err) => {
-      reject(err);
-    };
-    
     
     xhr.setRequestHeader('Content-Type', '');
     xhr.send(method === 'GET' ? null : args);

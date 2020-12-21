@@ -1,5 +1,5 @@
 export const buildFileName = (fileName: string, filesLength: number, index: number) => {
-  return `${fileName}${filesLength === 1 ? '' : index + 1}`
+  return `${fileName}${filesLength === 1 ? '' : index + 1}`;
 };
 
 const http:ReactUploadZWC.IHttp = ({

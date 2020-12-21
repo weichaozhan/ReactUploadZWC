@@ -9,9 +9,10 @@
     "dev": "cross-env NODE_ENV=development PORT=3002 webpack serve --progress --hot --color --config webpack.dev.js",
     "publish": "npm run build && npm publish",
     "mock": "nodemon ./mockServer/server.js",
+    "lint": "./node_modules/.bin/eslint --color --cache --format=node_modules/eslint-formatter-pretty src/**/*.tsx src/**/*.ts @types/**/*.ts",
     "start": "concurrently \"npm run mock\" \"npm run dev\"",
     "jest-init": "jest --init",
-    "test": "jest --coverage --color --watchAll"
+    "test": "concurrently \"jest --coverage --color --watchAll\" \"nodemon -e ts,tsx -w ./ -x npm run lint\""
   },
   "dependencies": {
     "@types/react": "^17.0.0",
@@ -53,6 +54,7 @@
     "enzyme": "^3.11.0",
     "eslint": "^7.15.0",
     "eslint-config-alloy": "^3.8.2",
+    "eslint-formatter-pretty": "^4.0.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.4.1",

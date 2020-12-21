@@ -3,27 +3,33 @@ import { unmountComponentAtNode, render } from 'react-dom';
 import { act, fireEvent } from '@testing-library/react';
 import Upload from '../src/Index';
 
-import { xhrMockClass } from '../__mocks__/http.__mock__';
-
 import '@testing-library/jest-dom/extend-expect';
+
+import http from '../src/http/index';
+
+jest.mock('../src/http/index');
+
+const mockHttp = http as jest.MockedFunction<typeof http>;
 
 describe('Upload', () => {
   let container: Element | null;
 
+  const success = new Promise(resolve => {
+    resolve({
+      status: 200,
+      statusText: 'success'
+    });
+  });
+  const errMsg = new Promise((...rest) => {
+    rest[1](JSON.stringify({
+      status: 500,
+      statusText: 'Internal Server Error'
+    }));
+  });
+  
   beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
-    const success = {
-      status: 200,
-      statusText: 'success'
-    };
-    const xhrMockObj = xhrMockClass(success);
-    // @ts-ignore
-    window.XMLHttpRequest = jest.fn().mockImplementation(() => xhrMockObj);
-    setTimeout(() => {
-      // @ts-ignore
-      xhrMockObj.onload();
-    });
   });
   afterEach(() => {
     if (container) {
@@ -61,6 +67,7 @@ describe('Upload', () => {
   
     const button = document.querySelector('input');
     act(() => {
+      mockHttp.mockImplementation(() => success);
       button && fireEvent.change(button, {
         target: {
           files: [new File(['text'], 'text.txt')],
@@ -80,6 +87,7 @@ describe('Upload', () => {
     const button = document.querySelector('input');
     
     act(() => {
+      mockHttp.mockImplementation(() => errMsg);
       button && fireEvent.change(button, {
         target: {
           files: [new File(['text'], 'text.txt')],

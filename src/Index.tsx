@@ -8,10 +8,10 @@ type TProps = ReactUploadZWC.IUploadProps;
 const Upload: FC<TProps> = ({
   accept,
   action,
-  directory = false,
   onChange,
   data,
   fileName,
+  directory = false,
   multiple = false,
   disabled = false
 }) => {
@@ -32,24 +32,24 @@ const Upload: FC<TProps> = ({
       return;
     }
 
-    action && Promise.allSettled([...files].map(file => {
-      if (typeof action === 'string') {
-        const result = http({
-          method: 'post',
-          url: action,
-          file,
-          data,
-          fileName
+    if (typeof action === 'string') {
+      http({
+        method: 'post',
+        url: action,
+        files: [...files],
+        data,
+        fileName,
+        multiple
+      })
+        .then(res => {
+          console.log('res', res);
+        })
+        .catch(err => {
+          console.log('err', err);
         });
-        
-        return result;
-      } else {
-        return action(file);
-      }
-    }))
-      .then(res => {
-        console.log('res', res);
-      });
+    } else {
+      action?.([...files]);
+    }
 
     fileInputFile.current.value = '';
   };

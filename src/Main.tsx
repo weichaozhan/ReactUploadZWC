@@ -9,8 +9,9 @@ const changeFiles: ReactUploadZWC.IHandlerFile = (files) => {
 
 ReactDom.render(
   <Upload
-    action="http://localhost:9001/api/user/upload"
+    action="http://localhost:9001/api/upload"
     onChange={changeFiles}
+    multiple={true}
     // beforeUpload={() => {
 
     // }}

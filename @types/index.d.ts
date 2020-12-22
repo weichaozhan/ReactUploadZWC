@@ -1,4 +1,6 @@
 declare namespace ReactUploadZWC {
+  import { CSSProperties } from "react";
+  
   type THttpParams = Partial<Request & {
     async?: boolean;
     username?: string | null;
@@ -17,14 +19,22 @@ declare namespace ReactUploadZWC {
   interface IHandlerFile {
     (file: File[] | FileList | null): any;
   }
+
+  interface IDragger {
+    height?: number;
+    width?: number;
+  }
+
   interface IUploadProps {
     accept?: string;
     action?: string | ((file: File[]) => Promise);
     method?: 'post' | 'get';
     directory?: boolean;
     onChange?: IHandlerFile;
+    className?: string;
+    style?: CSSProperties;
     data?: {
-      [props: string]: any
+      [props: string]: any;
     };
     fileName?: string;
     multiple?: boolean;

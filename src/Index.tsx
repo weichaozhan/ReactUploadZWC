@@ -4,16 +4,22 @@ import cNames from 'classnames';
 import http from './http';
 import styles from './Index.scss';
 
+import DraggerImp from './Dragger';
+
 type TProps = ReactUploadZWC.IUploadProps;
+
 const Upload: FC<TProps> = ({
   accept,
   action,
   onChange,
   data,
   fileName,
+  children,
+  className = '',
   directory = false,
+  style = {},
   multiple = false,
-  disabled = false
+  disabled = false,
 }) => {
   const fileInputFile: any = useRef(null);
 
@@ -26,6 +32,12 @@ const Upload: FC<TProps> = ({
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files?.length ? [...e.target.files] : e.target.files;
     
+    uploadFiles(files);
+
+    fileInputFile.current.value = '';
+  };
+
+  const uploadFiles = (files: File[] | FileList | null) => {
     onChange?.(files);
     
     if (!files?.length) {
@@ -50,21 +62,35 @@ const Upload: FC<TProps> = ({
     } else {
       action?.([...files]);
     }
+  };
 
-    fileInputFile.current.value = '';
+  const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files?.length ? [...e.dataTransfer.files] : e.dataTransfer.files;
+    
+    if (e.type === 'drop') {
+      uploadFiles(files);
+    }
   };
   
   return <div className={styles['wrapper']} >
-    <div className={styles['wrapper-real']} >
+    <div
+      className={styles['wrapper-real']}
+    >
       <label
+        style={{ ...style }}
         className={cNames(
           styles['button-upload'],
           {
             [styles['disabled']]: disabled
-          }
+          },
+          className
         )}
+        onDrop={onFileDrop}
+        onDragOver={onFileDrop}
+        onDragLeave={onFileDrop}
       >
-        上传文件
+        {children}
         <input
           accept={accept}
           className={styles['file-input']}
@@ -79,4 +105,5 @@ const Upload: FC<TProps> = ({
   </div>;
 };
 
+export const Dragger = DraggerImp;
 export default Upload;

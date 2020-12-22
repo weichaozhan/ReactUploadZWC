@@ -1,7 +1,6 @@
 .wrapper {
   display: inline-block;
   font-size: 0;
-  color: #fff;
   & * {
     box-sizing: border-box;
   }
@@ -13,19 +12,7 @@
 
 .button-upload {
   display: block;
-  width: 76px;
-  padding: 6px 10px;
-  font-size: 14px;
-  background: #1890ff;
-  border-radius: 4px;
   text-align: center;
-  cursor: pointer;
-  &:hover {
-    background: #18a1ff;
-  }
-  &.disabled {
-    background: #aeaeae;
-  }
 }
 
 .file-input {

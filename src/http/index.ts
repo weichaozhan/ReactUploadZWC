@@ -1,5 +1,5 @@
-export const buildFileName = (fileName: string, filesLength: number, index: number) => {
-  return `${fileName}${filesLength === 1 ? '' : index + 1}`;
+export const buildFileName = (fileName: string, multiple: boolean, index: number) => {
+  return `${fileName}${!multiple ? '' : index + 1}`;
 };
 
 const http:ReactUploadZWC.IHttp = ({
@@ -9,7 +9,8 @@ const http:ReactUploadZWC.IHttp = ({
   async = true,
   fileName = 'file',
   file,
-  files
+  files,
+  multiple
 }) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -32,9 +33,14 @@ const http:ReactUploadZWC.IHttp = ({
       });
 
       file && formData.append(fileName, file);
-      files?.forEach((file, index) => {
-        formData.append(buildFileName(fileName, files.length, index), file);
-      });
+      if (files) {
+        for (let index = 0; index < files.length; index++) {
+          const file = files[index];
+          formData.append(buildFileName(fileName, !!multiple, index), file);
+
+          if (!multiple) break;
+        }
+      }
       args = formData;
     }
 

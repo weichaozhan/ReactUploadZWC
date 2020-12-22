@@ -1,5 +1,5 @@
 declare namespace ReactUploadZWC {
-  import { CSSProperties } from "react";
+  import { CSSProperties } from 'react';
   
   type THttpParams = Partial<Request & {
     async?: boolean;

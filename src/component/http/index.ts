@@ -38,7 +38,9 @@ const http:ReactUploadZWC.IHttp = ({
           const file = files[index];
           formData.append(buildFileName(fileName, !!multiple, index), file);
 
-          if (!multiple) break;
+          if (!multiple && file) {
+            break;
+          }
         }
       }
       args = formData;

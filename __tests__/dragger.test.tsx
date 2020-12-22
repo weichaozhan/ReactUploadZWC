@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
 import { act, fireEvent } from '@testing-library/react';
-import Upload from '../src/component/Index';
+import { Dragger } from '../src/component/Index';
 
 import '@testing-library/jest-dom/extend-expect';
 
@@ -20,12 +20,6 @@ describe('Upload', () => {
       statusText: 'success'
     });
   });
-  const errMsg = new Promise((...rest) => {
-    rest[1](JSON.stringify({
-      status: 500,
-      statusText: 'Internal Server Error'
-    }));
-  });
   
   beforeEach(() => {
     container = document.createElement('div');
@@ -38,76 +32,62 @@ describe('Upload', () => {
     }
     container = null;
   });
-  
-  test('should render without error', () => {
-    const fnChange = jest.fn();
 
-    act(() => {
-      render(<Upload action="/user/upload" onChange={fnChange} />, container);
-    });
-  
-    const button = document.querySelector('input');
-    act(() => {
-      button?.dispatchEvent(new MouseEvent('change', {
-        bubbles: true
-      }));
-    });
-    expect(fnChange).toHaveBeenCalledTimes(1);
-  });
-
-  test('Upload action is string', () => {
+  test('Dragger: drop files', () => {
     const fnChange = jest.fn();    
 
     act(() => {
-      render(<Upload action="/user/upload" onChange={fnChange} />, container);
+      render(<Dragger action="/user/upload" onChange={fnChange} />, container);
     });
   
     const button = document.querySelector('input');
     act(() => {
       mockHttp.mockImplementation(() => success);
-      button && fireEvent.change(button, {
-        target: {
-          files: [new File(['text'], 'text.txt')],
+      button && fireEvent.drop(button, {
+        dataTransfer: {
+          files: [new File(['text'], 'text.txt')]
         },
+        type: 'drop'
       });
     });
     expect(fnChange).toHaveBeenCalledTimes(1);
   });
 
-  test('Upload failed', () => {
-    const fnChange = jest.fn();
-    
+  test('Dragger: drop no files', () => {
+    const fnChange = jest.fn();    
+
     act(() => {
-      render(<Upload action="/user/upload" onChange={fnChange} />, container);
+      render(<Dragger action="/user/upload" onChange={fnChange} />, container);
     });
   
     const button = document.querySelector('input');
-    
     act(() => {
-      mockHttp.mockImplementation(() => errMsg);
-      button && fireEvent.change(button, {
-        target: {
-          files: [new File(['text'], 'text.txt')],
+      mockHttp.mockImplementation(() => success);
+      button && fireEvent.drop(button, {
+        dataTransfer: {
+          files: undefined
         },
+        type: 'drop'
       });
     });
     expect(fnChange).toHaveBeenCalledTimes(1);
   });
 
-  test('Upload action is promise', () => {
-    const fnChange = jest.fn();
-    
+  test('Dragger: dragOver no files', () => {
+    const fnChange = jest.fn();    
+
     act(() => {
-      render(<Upload action={(file) => file} onChange={fnChange} />, container);
+      render(<Dragger action="/user/upload" onChange={fnChange} />, container);
     });
   
     const button = document.querySelector('input');
-
     act(() => {
-      button && fireEvent.change(button, {
-        target: {
-          files: [new File(['text'], 'text.txt')],
+      mockHttp.mockImplementation(() => success);
+      button && fireEvent.drop(button, {
+        dataTransfer: {
+          files: [new File(['text'], 'text.txt')]
         },
+        type: 'dragOver'
       });
     });
     expect(fnChange).toHaveBeenCalledTimes(1);

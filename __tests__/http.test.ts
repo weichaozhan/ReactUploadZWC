@@ -1,6 +1,6 @@
 import { xhrMockClass } from '../__mocks__/http.__mock__';
 
-import http, { buildFileName } from '../src/http';
+import http, { buildFileName } from '../src/component/http';
 
 describe('http', () => {
   afterEach(() => {
@@ -35,8 +35,6 @@ describe('http', () => {
     });
   });
 
-  
-
   test('test post files', async () => {
     const success = {
       status: 200,
@@ -62,7 +60,42 @@ describe('http', () => {
         new File(['foo2'], 'foo2.txt', {
           type: "text/plain",
         })
-      ]
+      ],
+      multiple: false
+    });
+
+    expect(result).toEqual({
+      code: 0
+    });
+  });
+
+  test('test post files single', async () => {
+    const success = {
+      status: 200,
+      statusText: 'success'
+    };
+    const xhrMockObj = xhrMockClass(success);
+    // @ts-ignore
+    window.XMLHttpRequest = jest.fn().mockImplementation(() => xhrMockObj);
+    setTimeout(() => {
+      // @ts-ignore
+      xhrMockObj.onload();
+    });
+    const result = await http({
+      method: 'post',
+      url: '/user/upload',
+      data: {
+        test: 'test'
+      },
+      files: [
+        new File(['foo1'], 'foo1.txt', {
+          type: "text/plain",
+        }),
+        new File(['foo2'], 'foo2.txt', {
+          type: "text/plain",
+        })
+      ],
+      multiple: true
     });
 
     expect(result).toEqual({
@@ -118,10 +151,10 @@ describe('http', () => {
 
 describe('buildFileName', () => {
   test('Length of files is one:', () => {
-    expect(buildFileName('foo', 1, 0)).toBe('foo');
+    expect(buildFileName('foo', false, 0)).toBe('foo');
   });
 
   test('Length of files is more than one:', () => {
-    expect(buildFileName('foo', 2, 0)).toBe('foo1');
+    expect(buildFileName('foo', true, 0)).toBe('foo1');
   });
 });

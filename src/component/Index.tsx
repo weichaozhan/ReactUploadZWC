@@ -68,11 +68,9 @@ const Upload: FC<TProps> = ({
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    const files = e.dataTransfer.files?.length ? [...e.dataTransfer.files] : e.dataTransfer.files;
+    const files = [...(e.dataTransfer.files ?? [])];
     
-    if (e.type === 'drop') {
-      uploadFiles(files);
-    }
+    e.type === 'drop' && uploadFiles(files);
   };
   
   return <div className={cNames(styles['wrapper'], outterClassName)} >

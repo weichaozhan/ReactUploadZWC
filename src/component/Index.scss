@@ -1,0 +1,20 @@
+.wrapper {
+  display: inline-block;
+  font-size: 0;
+  & * {
+    box-sizing: border-box;
+  }
+}
+
+.wrapper-real {
+  font-size: 1rem;
+}
+
+.button-upload {
+  display: block;
+  text-align: center;
+}
+
+.file-input {
+  display: none;
+}

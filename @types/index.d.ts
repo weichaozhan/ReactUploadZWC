@@ -41,5 +41,7 @@ declare namespace ReactUploadZWC {
     beforeUpload?: ((file: File, fileList: FileList) => boolean) | Promise;
     fileList?: Object[];
     disabled?: boolean;
+    outterClassName?: string;
+    innerClassName?: string;
   }
 }

@@ -1,20 +1,23 @@
-.wrapper {
-  display: inline-block;
-  font-size: 0;
-  & * {
-    box-sizing: border-box;
+.upload-exp {
+  padding: 8px 10px;
+  color: #fff;
+  background-color: #1890ff;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #40a9ff;
   }
 }
 
-.wrapper-real {
-  font-size: 1rem;
-}
-
-.button-upload {
+.dragger-inner {
   display: block;
-  text-align: center;
 }
 
-.file-input {
-  display: none;
+.dragger-outter {
+  display: flex;
+  margin-top: 20px;
+  padding: 20px 10px;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #8e8e8e;
 }

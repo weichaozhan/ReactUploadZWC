@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import cNames from 'classnames';
 
-import http from './http';
+import http from './http/index';
 import styles from './Index.scss';
 
 import DraggerImp from './Dragger';
@@ -20,6 +20,8 @@ const Upload: FC<TProps> = ({
   style = {},
   multiple = false,
   disabled = false,
+  outterClassName = '',
+  innerClassName = ''
 }) => {
   const fileInputFile: any = useRef(null);
 
@@ -73,9 +75,9 @@ const Upload: FC<TProps> = ({
     }
   };
   
-  return <div className={styles['wrapper']} >
+  return <div className={cNames(styles['wrapper'], outterClassName)} >
     <div
-      className={styles['wrapper-real']}
+      className={cNames(styles['wrapper-real'], innerClassName)}
     >
       <label
         style={{ ...style }}

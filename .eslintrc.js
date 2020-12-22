@@ -13,6 +13,7 @@ module.exports = {
     'BigInt': true,
     'ReactUploadZWC': true
   },
+  'parser': '@typescript-eslint/parser',
   'parserOptions': {
     'ecmaVersion': 7,
     'sourceType': 'module',
@@ -34,8 +35,6 @@ module.exports = {
     'semi-style': ['error', 'last'],
     'quotes': ['error', 'single'],
     'no-void': 'off',
-    '@typescript-eslint/no-invalid-void-type': 'off',
-    '@typescript-eslint/no-invalid-this': 'off',
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
     'react/jsx-indent': ['error', 2],

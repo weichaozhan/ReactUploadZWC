@@ -12,7 +12,9 @@
     "lint": "./node_modules/.bin/eslint --color --cache --format=node_modules/eslint-formatter-pretty src/**/*.tsx src/**/*.ts @types/**/*.ts",
     "start": "concurrently \"npm run mock\" \"npm run dev\"",
     "jest-init": "jest --init",
-    "test": "concurrently \"jest --coverage --color --watchAll\" \"nodemon -e ts,tsx -w ./ -x npm run lint\""
+    "test": "concurrently \"jest --coverage --color --watchAll\" \"nodemon -e ts,tsx -w ./ -x npm run lint\"",
+    "link": "npm link react-upload-zwc",
+    "pub": "npm run build & npm run publish"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

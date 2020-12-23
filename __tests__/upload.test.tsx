@@ -112,4 +112,24 @@ describe('Upload', () => {
     });
     expect(fnChange).toHaveBeenCalledTimes(1);
   });
+
+  test('Upload action is drop:', () => {
+    const fnChange = jest.fn();
+    
+    act(() => {
+      render(<Upload action={(file) => file} onChange={fnChange} />, container);
+    });
+  
+    const button = document.querySelector('input');
+
+    act(() => {
+      button && fireEvent.drop(button, {
+        dataTransfer: {
+          files: [new File(['text'], 'text.txt')]
+        },
+        type: 'drop'
+      });
+      expect(fnChange).toHaveBeenCalledTimes(0);
+    });
+  });
 });

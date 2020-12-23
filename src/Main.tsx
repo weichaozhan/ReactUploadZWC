@@ -33,6 +33,12 @@ ReactDom.render(
       }}
       innerClassName={styles['dragger-inner']}
       outterClassName={styles['dragger-outter']}
+      uploadSuccess={res => {
+        console.log('res', res);
+      }}
+      uploadFailed={err => {
+        console.log('err', err);
+      }}
       style={{
         display: 'flex',
         justifyContent: 'center',

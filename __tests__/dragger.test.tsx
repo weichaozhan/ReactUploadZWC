@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
 import { act, fireEvent } from '@testing-library/react';
-import { Dragger } from '../src/component/Index';
+import Upload from '../src/component/Index';
 
 import '@testing-library/jest-dom/extend-expect';
 
 import http from '../src/component/http/index';
 
 jest.mock('../src/component/http/index');
+
+const { Dragger } = Upload;
 
 const mockHttp = http as jest.MockedFunction<typeof http>;
 

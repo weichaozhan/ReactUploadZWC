@@ -27,6 +27,8 @@ declare namespace ReactUploadZWC {
 
   type UploadType = 'drag' | 'select';
 
+  type TBeforeUpload = (files: FileList | File[] | null) => (boolean | Promise<any>);
+
   interface IUploadProps {
     type?: UploadType;
     accept?: string;
@@ -41,7 +43,7 @@ declare namespace ReactUploadZWC {
     };
     fileName?: string;
     multiple?: boolean;
-    beforeUpload?: (files: FileList | File[] | null) => (boolean | Promise<any>);
+    beforeUpload?: TBeforeUpload;
     uploadSuccess?: (...rest: any[]) => any;
     uploadFailed?: (...rest: any[]) => any;
     fileList?: Object[];

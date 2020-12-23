@@ -3,6 +3,7 @@ import cNames from 'classnames';
 
 import http from './http/index';
 import styles from './Index.scss';
+import { useUploadAction } from './customHooks';
 
 import Dragger from './Dragger';
 
@@ -30,6 +31,7 @@ const Upload: FC<TProps> & {
   uploadSuccess = (res) => res
 }) => {
   const fileInputFile: any = useRef(null);
+  const [beforeUploadAction] = useUploadAction(beforeUpload);
 
   useEffect(() => {
     (fileInputFile.current as (HTMLInputElement & {
@@ -75,33 +77,6 @@ const Upload: FC<TProps> & {
       }
     } catch {
     }
-  };
-
-  const beforeUploadAction = (files: FileList | File[] | null) => {
-    if (!beforeUpload) {
-      return new Promise(resolve => {
-        resolve(true);
-      });
-    }
-    return new Promise((resolve, reject) => {
-      const result = beforeUpload(files);
-      
-      if (typeof result === 'boolean') {
-        if (result) {
-          resolve(true);
-        } else {
-          reject(new Error('err'));
-        }
-      } else {
-        result
-          .then(res => {
-            resolve(res);
-          })
-          .catch(err => {
-            reject(new Error(err));
-          });
-      }
-    });
   };
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {

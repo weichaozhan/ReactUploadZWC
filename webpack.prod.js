@@ -7,14 +7,14 @@ const webpackConfig = require('./webpack.common');
 webpackConfig.plugins.push(...[
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin({
-    filename: "index.min.css"
+    filename: 'index.min.css'
   })
 ]);
 
 const configProd = {
   ...webpackConfig,
   entry: {
-    main: ['./src/Index.tsx']
+    main: ['./src/component/Index.tsx']
   },
   mode: 'production',
   externals: {

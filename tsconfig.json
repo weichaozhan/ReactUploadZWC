@@ -4,10 +4,13 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
-      "esnext.intl",
-      "es2017.intl",
-      "es2018.intl"
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "ESNext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,8 +28,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "sourceMap": true,
     "jsx": "react",
     "noImplicitAny": false,
+    "downlevelIteration": true,
     "typeRoots": ["@types", "./node_modules/@types"],
   },
   "include": ["@types", "src/**/*"],

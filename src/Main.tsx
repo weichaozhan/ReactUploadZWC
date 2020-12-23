@@ -25,6 +25,10 @@ ReactDom.render(
       height={300}
       action="http://localhost:9001/api/upload"
       onChange={changeFiles}
+      beforeUpload={(files) => {
+        console.log(files);
+        return true;
+      }}
       innerClassName={styles['dragger-inner']}
       outterClassName={styles['dragger-outter']}
       style={{

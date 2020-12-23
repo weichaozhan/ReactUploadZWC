@@ -16,12 +16,15 @@ const Upload: FC<TProps> = ({
   fileName,
   children,
   className = '',
+  beforeUpload,
   directory = false,
   style = {},
   multiple = false,
   disabled = false,
   outterClassName = '',
-  innerClassName = ''
+  innerClassName = '',
+  uploadFailed = (err) => err,
+  uploadSuccess = (res) => res
 }) => {
   const fileInputFile: any = useRef(null);
 
@@ -39,31 +42,63 @@ const Upload: FC<TProps> = ({
     fileInputFile.current.value = '';
   };
 
-  const uploadFiles = (files: File[] | FileList | null) => {
+  const uploadFiles = async (files: File[] | FileList | null) => {
     onChange?.(files);
     
-    if (!files?.length) {
-      return;
-    }
-
-    if (typeof action === 'string') {
-      http({
-        method: 'post',
-        url: action,
-        files: [...files],
-        data,
-        fileName,
-        multiple
-      })
-        .then(res => {
-          console.log('res', res);
+    try {
+      await beforeUploadAction(files);
+  
+      if (!files?.length) {
+        return;
+      }
+  
+      if (typeof action === 'string') {
+        http({
+          method: 'post',
+          url: action,
+          files: [...files],
+          data,
+          fileName,
+          multiple
         })
-        .catch(err => {
-          console.log('err', err);
-        });
-    } else {
-      action?.([...files]);
+          .then(res => {
+            uploadSuccess(res);
+          })
+          .catch((err) => {
+            uploadFailed(err);
+          });
+      } else {
+        action?.([...files]);
+      }
+    } catch {
     }
+  };
+
+  const beforeUploadAction = (files: FileList | File[] | null) => {
+    if (!beforeUpload) {
+      return new Promise(resolve => {
+        resolve(true);
+      });
+    }
+    return new Promise((resolve, reject) => {
+      const result = beforeUpload(files);
+      
+      if (typeof result === 'boolean') {
+        if (result) {
+          resolve(true);
+        } else {
+          reject(new Error('err'));
+        }
+      } else {
+        result
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(new Error(err));
+          });
+      }
+    });
   };
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -72,7 +107,7 @@ const Upload: FC<TProps> = ({
     
     e.type === 'drop' && uploadFiles(files);
   };
-  
+
   return <div className={cNames(styles['wrapper'], outterClassName)} >
     <div
       className={cNames(styles['wrapper-real'], innerClassName)}

@@ -1,10 +1,14 @@
 {
   "name": "react-upload-zwc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An upload Component for React",
   "main": "./lib/index.js",
   "types": "./@type/index.d.ts",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/weichaozhan/ReactUploadZWC.git"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",
     "dev": "cross-env NODE_ENV=development PORT=3002 webpack serve --progress --hot --color --config webpack.dev.js",

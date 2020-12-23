@@ -4,6 +4,7 @@
   "description": "An upload Component for React",
   "main": "./lib/index.js",
   "types": "./@type/index.d.ts",
+  "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",
     "dev": "cross-env NODE_ENV=development PORT=3002 webpack serve --progress --hot --color --config webpack.dev.js",

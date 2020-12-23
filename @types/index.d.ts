@@ -25,7 +25,10 @@ declare namespace ReactUploadZWC {
     width?: number;
   }
 
+  type UploadType = 'drag' | 'select';
+
   interface IUploadProps {
+    type?: UploadType;
     accept?: string;
     action?: string | ((file: File[]) => Promise);
     method?: 'post' | 'get';

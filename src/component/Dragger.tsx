@@ -11,6 +11,7 @@ const Dragger: FC<ReactUploadZWC.IDragger & ReactUploadZWC.IUploadProps> = ({
 }) => {
   return <Upload
     {...restProps}
+    type="drag"
     style={{ height: `${height}px`, width: `${width}px`, ...style }}
   >
     {children}

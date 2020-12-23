@@ -41,6 +41,7 @@ module.exports = {
     'react/jsx-indent-props': ['error', 2],
     '@typescript-eslint/indent': ['error', 2, { 'SwitchCase': 1, 'flatTernaryExpressions': true }],
     '@typescript-eslint/prefer-function-type': 'off',
-    '@typescript-eslint/prefer-for-of': 'off'
+    '@typescript-eslint/prefer-for-of': 'off',
+    '@typescript-eslint/no-invalid-this': 'off'
   }
 };

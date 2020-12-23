@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import Upload, { Dragger } from './component/Index';
+import Upload from './component/Index';
 
 import styles from './index.scss';
 
 const changeFiles: ReactUploadZWC.IHandlerFile = (files) => {
   console.log('e.target.files', files);
 };
+
+const { Dragger } = Upload;
 
 ReactDom.render(
   <div>

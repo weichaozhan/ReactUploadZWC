@@ -4,11 +4,14 @@ import cNames from 'classnames';
 import http from './http/index';
 import styles from './Index.scss';
 
-import DraggerImp from './Dragger';
+import Dragger from './Dragger';
 
 type TProps = ReactUploadZWC.IUploadProps;
 
-const Upload: FC<TProps> = ({
+const Upload: FC<TProps> & {
+  Dragger: typeof Dragger;
+} = ({
+  type = 'select',
   accept,
   action,
   onChange,
@@ -102,10 +105,12 @@ const Upload: FC<TProps> = ({
   };
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    const files = [...(e.dataTransfer.files ?? [])];
-    
-    e.type === 'drop' && uploadFiles(files);
+    if (type === 'drag') {
+      e.preventDefault();
+      const files = [...(e.dataTransfer.files ?? [])];
+      
+      e.type === 'drop' && uploadFiles(files);
+    }
   };
 
   return <div className={cNames(styles['wrapper'], outterClassName)} >
@@ -140,5 +145,6 @@ const Upload: FC<TProps> = ({
   </div>;
 };
 
-export const Dragger = DraggerImp;
+Upload.Dragger = Dragger;
+
 export default Upload;

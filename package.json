@@ -1,6 +1,6 @@
 {
   "name": "react-upload-zwc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An upload Component for React",
   "main": "./lib/index.js",
   "types": "./lib/@types/Index.d.ts",
@@ -10,8 +10,8 @@
     "upload"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/weichaozhan/ReactUploadZWC.git"
+    "type": "git",
+    "url": "https://github.com/weichaozhan/ReactUploadZWC.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",

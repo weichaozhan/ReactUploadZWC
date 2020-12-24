@@ -22,7 +22,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "declaration": false,
+    "declaration": true,
     "removeComments": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -33,6 +33,7 @@
     "noImplicitAny": false,
     "downlevelIteration": true,
     "typeRoots": ["@types", "./node_modules/@types"],
+    "declarationDir": "lib/@types"
   },
   "include": ["@types", "src/**/*"],
   "exclude": ["node_modules", "lib"]

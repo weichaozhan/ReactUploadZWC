@@ -3,8 +3,12 @@
   "version": "0.0.2",
   "description": "An upload Component for React",
   "main": "./lib/index.js",
-  "types": "./@type/index.d.ts",
+  "types": "./lib/@types/Index.d.ts",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "upload"
+  ],
   "repository": {
     "type" : "git",
     "url" : "https://github.com/weichaozhan/ReactUploadZWC.git"
@@ -18,7 +22,8 @@
     "jest-init": "jest --init",
     "test": "concurrently \"jest --coverage --color --watchAll\" \"nodemon -e ts,tsx -w ./ -x npm run lint\"",
     "link": "npm link react-upload-zwc",
-    "pub": "npm run build & npm publish"
+    "pub": "npm run build & npm version patch & npm publish",
+    "buildtypes": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

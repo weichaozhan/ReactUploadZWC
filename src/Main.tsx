@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { ReactUploadZWC } from '../@types';
 
 import Upload from './component/Index';
 

@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react';
 import cNames from 'classnames';
 
+import { ReactUploadZWC } from '../../@types';
+
 import http from './http/index';
 import styles from './Index.scss';
 import { useUploadAction } from './customHooks';

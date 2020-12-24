@@ -1,4 +1,4 @@
-declare namespace ReactUploadZWC {
+export declare namespace ReactUploadZWC {
   import { CSSProperties } from 'react';
   
   type THttpParams = Partial<Request & {

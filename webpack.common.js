@@ -10,6 +10,10 @@ const CssArr = [];
 
 if (env === 'production') {
   CssArr.push(MiniCssExtractPlugin.loader);
+} else {
+  CssArr.push({
+    loader: 'style-loader'
+  });
 }
 
 module.exports = {
@@ -50,11 +54,18 @@ module.exports = {
       },
       {
         test: /\.(css)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components|src)/,
         use: [
+          ...CssArr,
           {
-            loader: 'style-loader'
-          },
+            loader: 'css-loader'
+          }
+        ]
+      },
+      {
+        test: /\.(css)$/,
+        exclude: /(node_modules|bower_components|lib)/,
+        use: [
           ...CssArr,
           {
             loader: 'css-loader',
@@ -70,9 +81,6 @@ module.exports = {
         test: /\.(scss)$/,
         exclude: /(node_modules|bower_components)/,
         use: [
-          {
-            loader: 'style-loader'
-          },
           ...CssArr,
           {
             loader: 'css-loader',
@@ -86,6 +94,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
+                sourceMap: false,
                 javascriptEnabled: true
               }
             }

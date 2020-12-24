@@ -5,8 +5,8 @@ import { ReactUploadZWC } from '../../@types';
 import Upload from './Index';
 
 const Dragger: FC<ReactUploadZWC.IDragger & ReactUploadZWC.IUploadProps> = ({
-  height,
-  width,
+  height = 100,
+  width = 100,
   children,
   style,
   ...restProps

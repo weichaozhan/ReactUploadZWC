@@ -2,6 +2,9 @@
   "name": "react-upload-zwc",
   "version": "0.0.2",
   "description": "An upload Component for React",
+  "author": {
+    "name": "weichaozhan"
+  },
   "main": "./lib/index.js",
   "types": "./lib/@types/Index.d.ts",
   "license": "MIT",

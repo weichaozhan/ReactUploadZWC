@@ -39,7 +39,7 @@ const Upload: FC<TProps> & {
     (fileInputFile.current as (HTMLInputElement & {
       webkitdirectory: boolean
     })).webkitdirectory = directory;
-  }, [fileInputFile.current]);
+  }, [directory]);
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files?.length ? [...e.target.files] : e.target.files;

@@ -13,8 +13,8 @@
     "upload"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/weichaozhan/ReactUploadZWC.git"
+    "type": "git",
+    "url": "https://github.com/weichaozhan/ReactUploadZWC.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",

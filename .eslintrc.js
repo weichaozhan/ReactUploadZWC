@@ -42,6 +42,8 @@ module.exports = {
     '@typescript-eslint/indent': ['error', 2, { 'SwitchCase': 1, 'flatTernaryExpressions': true }],
     '@typescript-eslint/prefer-function-type': 'off',
     '@typescript-eslint/prefer-for-of': 'off',
-    '@typescript-eslint/no-invalid-this': 'off'
+    '@typescript-eslint/no-invalid-this': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error'
   }
 };

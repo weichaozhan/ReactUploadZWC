@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
-// import cNames from 'classnames';
+import cNames from 'classnames';
 
 import { ReactUploadZWC } from '../../@types';
 
@@ -39,7 +39,7 @@ const Upload: FC<TProps> & {
     (fileInputFile.current as (HTMLInputElement & {
       webkitdirectory: boolean
     })).webkitdirectory = directory;
-  }, [fileInputFile.current]);
+  }, [directory]);
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files?.length ? [...e.target.files] : e.target.files;
@@ -90,33 +90,19 @@ const Upload: FC<TProps> & {
     }
   };
 
-  return <div className={
-    // cNames(styles['wrapper'], outterClassName)
-    `${styles['wrapper']} ${outterClassName}`
-  }
-  >
+  return <div className={cNames(styles['wrapper'], outterClassName)} >
     <div
-      className={
-        // cNames(styles['wrapper-real'], innerClassName)
-        `${styles['wrapper-real']} ${innerClassName}`
-      }
+      className={cNames(styles['wrapper-real'], innerClassName)}
     >
       <label
         style={{ ...style }}
-        className={
-          // cNames(
-          //   styles['button-upload'],
-          //   {
-          //     [styles['disabled']]: disabled
-          //   },
-          //   className
-          // )
-          `
-            ${styles['button-upload']}
-            ${disabled ? [styles['disabled']] : ''}
-            ${className}
-          `
-        }
+        className={cNames(
+          styles['button-upload'],
+          {
+            [styles['disabled']]: disabled
+          },
+          className
+        )}
         onDrop={onFileDrop}
         onDragOver={onFileDrop}
         onDragLeave={onFileDrop}

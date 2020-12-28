@@ -36,9 +36,7 @@ const configProd = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'lib'),
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    libraryExport: 'default'
+    libraryTarget: 'umd'
   },
 };
 

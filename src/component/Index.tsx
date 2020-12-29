@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
-import cNames from 'classnames';
+import classNames from 'classnames';
 
 import { ReactUploadZWC } from '../../@types';
 
@@ -90,13 +90,13 @@ const Upload: FC<TProps> & {
     }
   };
 
-  return <div className={cNames(styles['wrapper'], outterClassName)} >
+  return <div className={classNames(styles['wrapper'], outterClassName)} >
     <div
-      className={cNames(styles['wrapper-real'], innerClassName)}
+      className={classNames(styles['wrapper-real'], innerClassName)}
     >
       <label
         style={{ ...style }}
-        className={cNames(
+        className={classNames(
           styles['button-upload'],
           {
             [styles['disabled']]: disabled

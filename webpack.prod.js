@@ -26,6 +26,12 @@ const configProd = {
       amd: 'react-dom',
       root: 'ReactDOM',
     },
+    'classnames': {
+      commonjs: 'classnames',
+      commonjs2: 'classnames',
+      amd: 'classnames',
+      root: 'classNames',
+    },
   },
   output: {
     filename: 'index.js',

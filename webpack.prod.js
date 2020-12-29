@@ -1,14 +1,10 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const webpackConfig = require('./webpack.common');
 
 webpackConfig.plugins.push(...[
-  new CleanWebpackPlugin(),
-  new MiniCssExtractPlugin({
-    filename: 'index.min.css'
-  })
+  new CleanWebpackPlugin()
 ]);
 
 const configProd = {
@@ -19,17 +15,17 @@ const configProd = {
   mode: 'production',
   externals: {
     react: {
-      root: 'React',
-      commonjs2: 'react',
       commonjs: 'react',
-      amd: 'react'
+      commonjs2: 'react',
+      amd: 'react',
+      root: 'React',
     },
     'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
       commonjs: 'react-dom',
-      amd: 'react-dom'
-    }
+      commonjs2: 'react-dom',
+      amd: 'react-dom',
+      root: 'ReactDOM',
+    },
   },
   output: {
     filename: 'index.js',

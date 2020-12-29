@@ -1,20 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const mainEntry = ['./src/Main.tsx'];
 
 const env = process.env.NODE_ENV;
-const CssArr = [];
-
-if (env === 'production') {
-  CssArr.push(MiniCssExtractPlugin.loader);
-} else {
-  CssArr.push({
-    loader: 'style-loader'
-  });
-}
+const CssArr = [{
+  loader: 'style-loader'
+}];
 
 module.exports = {
   mode: env,

@@ -55,7 +55,7 @@ const configDev = {
   devServer: {
     contentBase: path.join(__dirname, 'lib'),
     port: port,
-    open: true
+    // open: true
   },
   devtool: 'eval-source-map',
   ...webpackConfig

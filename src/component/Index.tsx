@@ -32,7 +32,7 @@ const Upload: FC<TProps> & {
   uploadFailed = (err) => err,
   uploadSuccess = (res) => res
 }) => {
-  const fileInputFile: any = useRef(null);
+  const fileInputFile: React.MutableRefObject<any> = useRef(null);
   const [beforeUploadAction] = useUploadAction(beforeUpload);
 
   useEffect(() => {
@@ -90,6 +90,15 @@ const Upload: FC<TProps> & {
     }
   };
 
+  const clickLabel = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+    e.preventDefault();
+    fileInputFile.current.click();
+  };
+
+  const clickFileInputFile = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return <div className={classNames(styles['wrapper'], outterClassName)} >
     <div
       className={classNames(styles['wrapper-real'], innerClassName)}
@@ -103,6 +112,7 @@ const Upload: FC<TProps> & {
           },
           className
         )}
+        onClick={clickLabel}
         onDrop={onFileDrop}
         onDragOver={onFileDrop}
         onDragLeave={onFileDrop}
@@ -114,6 +124,7 @@ const Upload: FC<TProps> & {
           ref={fileInputFile}
           type="file"
           onChange={changeFile}
+          onClick={clickFileInputFile}
           multiple={multiple}
           disabled={disabled}
         />

@@ -21,3 +21,30 @@
   align-items: center;
   border: 1px dashed #8e8e8e;
 }
+
+.exp-wrapper {
+  $marginBottom: 20px;
+  
+  margin: $marginBottom 10px 30px;
+  padding: 20px;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+  &:last-child {
+    margin-bottom: $marginBottom;
+  }
+
+  .exp-wrapper * {
+    box-sizing: border-box;
+  }
+}
+.exp-result {
+  margin-bottom: 16px;
+}
+.exp-result, .exp-code {
+  text-align: center;
+}
+
+.exp-code {
+  padding-top: 16px;
+  border-top: 1px dashed #d0d0d0;
+}

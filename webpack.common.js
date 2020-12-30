@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         test: /\.(css)$/,
-        exclude: /(node_modules|bower_components|src)/,
+        exclude: /(src)/,
         use: [
           ...CssArr,
           {

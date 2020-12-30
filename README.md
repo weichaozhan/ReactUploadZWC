@@ -28,6 +28,9 @@ npm i
 # Run demo
 npm run start
 ```
+## Online Demo
+
+https://weichaozhan.github.io/ReactUploadZWC/dist/
 
 ## Example
 

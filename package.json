@@ -10,8 +10,13 @@
   "license": "MIT",
   "keywords": [
     "react",
+    "react-component",
+    "react-upload",
     "upload"
   ],
+  "bugs": {
+    "url": "https://github.com/weichaozhan/ReactUploadZWC/issues
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/weichaozhan/ReactUploadZWC.git"

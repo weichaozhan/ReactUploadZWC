@@ -90,6 +90,7 @@ React.render(
 |disabled| boolean | false | If disabled |
 |outterClassName | string | - | Outter wrapper. |
 |innerClassName | string | - | Inner wrapper. |
+|customAction | (...rest: any[]) => any | - | Your custom action. uploadFailed & uploadSuccess will be invalid. |
 
 ### Dragger props
 

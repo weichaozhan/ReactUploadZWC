@@ -30,7 +30,8 @@ const Upload: FC<TProps> & {
   outterClassName = '',
   innerClassName = '',
   uploadFailed = (err) => err,
-  uploadSuccess = (res) => res
+  uploadSuccess = (res) => res,
+  customAction
 }) => {
   const fileInputFile: React.MutableRefObject<any> = useRef(null);
   const [beforeUploadAction] = useUploadAction(beforeUpload);
@@ -56,6 +57,11 @@ const Upload: FC<TProps> & {
       await beforeUploadAction(files);
   
       if (!files?.length) {
+        return;
+      }
+
+      if (customAction) {
+        customAction(files);
         return;
       }
   

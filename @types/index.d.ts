@@ -50,5 +50,6 @@ export declare namespace ReactUploadZWC {
     disabled?: boolean;
     outterClassName?: string;
     innerClassName?: string;
+    customAction?: Function;
   }
 }

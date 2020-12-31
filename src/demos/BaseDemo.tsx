@@ -1,26 +1,27 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
+import DemoWrapper from './DemoWrapper';
 import Code from './Code';
 import Upload from '../component/Index';
 
-import styles from '../index.scss';
+import styles from './index.scss';
 import { changeFiles } from './Index';
 
 const BaseDemo: FC = () => {
-  return <section className={styles['exp-wrapper']} >
-    <div className={styles['exp-result']} >
-      <Upload
-        className={styles['upload-exp']}
-        action="http://localhost:9001/api/upload"
-        onChange={changeFiles}
-        multiple={true}
-      >
-        上传文件
-      </Upload>
-    </div>
-
-    <div className={styles['exp-code']} >
+  return <DemoWrapper
+    anchor="base"
+    title="基本"
+    demo={<Upload
+      className={styles['upload-exp']}
+      action="http://localhost:9001/api/upload"
+      onChange={changeFiles}
+      multiple={true}
+    >
+      上传文件
+    </Upload>}
+    code={<Fragment>
       <Code
+        key="scss_0"
         lang="scss"
         code={`
           .upload-exp {
@@ -35,10 +36,11 @@ const BaseDemo: FC = () => {
           }
         `}
       />
-
       <Code
         lang="tsx"
         code={`
+          import Upload from 'react-upload-zwc';
+
           <Upload
             className={styles['upload-exp']}
             action="http://localhost:9001/api/upload"
@@ -49,8 +51,8 @@ const BaseDemo: FC = () => {
           </Upload>
         `}
       />
-    </div>
-  </section>;
+    </Fragment>}
+  />;
 };
 
 export default BaseDemo;

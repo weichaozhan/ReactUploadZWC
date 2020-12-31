@@ -1,3 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  margin: 30px 10px 20px;
+}
+
+.container {
+  margin-right: 240px;
+  overflow: hidden;
+}
+
+.menu-list {
+  width: 200px;
+  padding: 0 20px;
+  line-height: 2;
+  position: fixed;
+  right: 0;
+
+  & > a {
+    display: block;
+    color: #314659;
+    text-decoration: none;
+    transition: all .3s;
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+
 .upload-exp {
   padding: 8px 10px;
   color: #fff;
@@ -23,16 +54,16 @@
 }
 
 .exp-wrapper {
-  $marginBottom: 20px;
-  
-  margin: $marginBottom 10px 30px;
+  margin-bottom: 20px;
   padding: 20px;
   border: 1px solid #c0c0c0;
   border-radius: 4px;
-  &:last-child {
-    margin-bottom: $marginBottom;
-  }
 
+  .exp-title {
+    padding-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid #d8d8d8;
+  }
   .exp-wrapper * {
     box-sizing: border-box;
   }

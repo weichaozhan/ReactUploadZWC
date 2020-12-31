@@ -44,6 +44,7 @@ module.exports = {
     '@typescript-eslint/prefer-for-of': 'off',
     '@typescript-eslint/no-invalid-this': 'off',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error'
+    'react-hooks/exhaustive-deps': 'error',
+    'react/jsx-fragments': 'off'
   }
 };

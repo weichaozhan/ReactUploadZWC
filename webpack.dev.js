@@ -57,7 +57,7 @@ webpackConfig.plugins.push(
 
 const configDev = {
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'demo'),
     port: port,
     // open: true
   },

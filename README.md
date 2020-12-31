@@ -30,7 +30,7 @@ npm run start
 ```
 ## Online Demo
 
-https://weichaozhan.github.io/ReactUploadZWC/dist/
+https://weichaozhan.github.io/ReactUploadZWC/demo/
 
 ## Example
 

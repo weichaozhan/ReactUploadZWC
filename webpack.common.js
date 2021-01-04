@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const mainEntry = ['./src/Main.tsx'];
+const mainEntry = ['regenerator-runtime/runtime', 'core-js/stable', './src/Main.tsx'];
 
 const env = process.env.NODE_ENV;
 const CssArr = [{

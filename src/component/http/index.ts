@@ -13,7 +13,8 @@ const http:ReactUploadZWC.IHttp = ({
   fileName = 'file',
   file,
   files,
-  multiple
+  multiple,
+  headers
 }) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -57,8 +58,13 @@ const http:ReactUploadZWC.IHttp = ({
         reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
       }
     };
+
+    if (headers) {
+      Object.entries(headers).forEach((item) => {
+        xhr.setRequestHeader(item[0], item[1]);
+      });
+    }
     
-    xhr.setRequestHeader('Content-Type', '');
     xhr.send(methodUpper === 'GET' ? null : args);
   });
 };

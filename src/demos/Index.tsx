@@ -17,10 +17,10 @@ const Demos: FC = () => {
       <a href="#drag" >拖拽</a>
     </div>
 
-    <main className={styles['container']} >
+    <div className={styles['container']} >
       <BaseDemo/>
       <DragDemo/>
-    </main>
+    </div>
   </div>;
 };
 

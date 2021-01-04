@@ -12,6 +12,9 @@ const BaseDemo: FC = () => {
     anchor="base"
     title="基本"
     demo={<Upload
+      headers={{
+        'Authorization': 'test'
+      }}
       className={styles['upload-exp']}
       action="http://localhost:9001/api/upload"
       onChange={changeFiles}

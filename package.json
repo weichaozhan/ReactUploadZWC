@@ -34,6 +34,8 @@
     "pub": "npm run build & npm version patch & npm publish"
   },
   "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.12.5",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
@@ -70,7 +72,6 @@
     "compression-webpack-plugin": "^7.1.1",
     "concurrently": "^5.3.0",
     "core-js": "^3.8.1",
-    "corejs": "^1.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "enzyme": "^3.11.0",
@@ -124,8 +125,8 @@
     "react-dom": ">=16.8.6"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 9"
+    ">0.2%",
+    "not dead",
+    "ie >= 9"
   ]
 }

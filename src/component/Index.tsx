@@ -29,6 +29,7 @@ const Upload: FC<TProps> & {
   disabled = false,
   outterClassName = '',
   innerClassName = '',
+  headers,
   uploadFailed = (err) => err,
   uploadSuccess = (res) => res,
   customAction
@@ -72,6 +73,9 @@ const Upload: FC<TProps> & {
           files: [...files],
           data,
           fileName,
+          headers: {
+            ...headers
+          },
           multiple
         })
           .then(res => {

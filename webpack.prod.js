@@ -10,7 +10,7 @@ webpackConfig.plugins.push(...[
 const configProd = {
   ...webpackConfig,
   entry: {
-    main: ['./src/component/Index.tsx']
+    main: ['regenerator-runtime/runtime', 'core-js/stable', './src/component/Index.tsx']
   },
   mode: 'production',
   externals: {

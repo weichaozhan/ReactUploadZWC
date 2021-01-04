@@ -1,7 +1,7 @@
 export declare namespace ReactUploadZWC {
   import { CSSProperties } from 'react';
   
-  type THttpParams = Partial<Request & {
+  type THttpParams = Partial<Omit<Request, 'headers'> & {
     async?: boolean;
     username?: string | null;
     password?: string | null;
@@ -9,6 +9,9 @@ export declare namespace ReactUploadZWC {
       [props: string]: any
     };
     file: File;
+    headers: {
+      [props: string]: string;
+    };
     files: File[];
     fileName: string;
     multiple: boolean;
@@ -31,6 +34,9 @@ export declare namespace ReactUploadZWC {
 
   interface IUploadProps {
     type?: UploadType;
+    headers?: {
+      [props: string]: string;
+    };
     accept?: string;
     action?: string | ((file: File[]) => Promise);
     method?: 'post' | 'get';

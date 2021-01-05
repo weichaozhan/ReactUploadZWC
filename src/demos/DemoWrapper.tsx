@@ -1,4 +1,5 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
+import classNames from 'classnames';
 
 import styles from './index.scss';
 
@@ -15,6 +16,12 @@ const DemoWrapper: FC<IProps> = ({
   title,
   anchor
 }) => {
+  const [codeShow, setCodeShow] = useState(false);
+
+  const clickCode = () => {
+    setCodeShow(!codeShow);
+  };
+
   return <section id={anchor} className={styles['exp-wrapper']} >
     <h3
       className={styles['exp-title']}
@@ -27,7 +34,20 @@ const DemoWrapper: FC<IProps> = ({
     </div>
 
     <div className={styles['exp-code']} >
-      {code}
+      <div className={styles['exp-code-header']} >
+        <span className={styles['code-toggle']} onClick={clickCode} >{codeShow ? '隐藏' : '显示'}代码</span>
+      </div>
+      
+      <div
+        className={classNames(
+          styles['exp-code-content'],
+          {
+            [styles['exp-code-content--show']]: codeShow
+          }
+        )}
+      >
+        {code}
+      </div>
     </div>
   </section>;
 };

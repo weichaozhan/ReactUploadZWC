@@ -102,14 +102,10 @@
   }
 
   .exp-code-content {
-    max-height: 0;
     overflow: hidden;
-    transition: all .5s;
+    transition: all .3s;
     &, & * {
       background-color: $bg-color!important;
     }
-  }
-  .exp-code-content--show {
-    max-height: 10000px;
   }
 }

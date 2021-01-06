@@ -78,6 +78,8 @@
 .exp-code {
   $border-color: #d3dce6;
   $bg-color: #f0f0f0;
+  $bdradius: 8px;
+
   margin-top: 20px;
 
   .exp-code-header {
@@ -85,6 +87,7 @@
     font-size: 12px;
     border: 1px solid $border-color;
     background-color: $bg-color;
+    border-radius: $bdradius $bdradius 0 0;
     
     .code-toggle {
       color: #a0a0a0;
@@ -103,7 +106,11 @@
 
   .exp-code-content {
     overflow: hidden;
+    border: 1px solid $border-color;
+    border-top: none;
     transition: all .3s;
+    border-radius: 0 0 $bdradius $bdradius;
+
     &, & * {
       background-color: $bg-color!important;
     }

@@ -90,7 +90,8 @@ const DemoWrapper: FC<IProps> = ({
         ref={contentDom}
         className={styles['exp-code-content']}
         style={{
-          height: `${state.codeShow ? state.contentHeight : 0}px`
+          height: `${state.codeShow ? state.contentHeight : 0}px`,
+          borderBottomWidth: `${state.codeShow ? 1 : 0}px`
         }}
       >
         {code}

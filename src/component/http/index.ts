@@ -14,7 +14,8 @@ const http:ReactUploadZWC.IHttp = ({
   file,
   files,
   multiple,
-  headers
+  headers,
+  withCredentials
 }) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -65,6 +66,8 @@ const http:ReactUploadZWC.IHttp = ({
       });
     }
     
+    xhr.withCredentials = withCredentials ?? false;
+
     xhr.send(methodUpper === 'GET' ? null : args);
   });
 };

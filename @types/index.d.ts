@@ -1,10 +1,12 @@
 export declare namespace ReactUploadZWC {
   import { CSSProperties } from 'react';
   
-  type THttpParams = Partial<Omit<Request, 'headers'> & {
-    async?: boolean;
-    username?: string | null;
-    password?: string | null;
+  type THttpParams = Partial<{
+    method: string;
+    url: string;
+    async: boolean;
+    username: string | null;
+    password: string | null;
     data: {
       [props: string]: any
     };
@@ -15,12 +17,16 @@ export declare namespace ReactUploadZWC {
     files: File[];
     fileName: string;
     multiple: boolean;
+    withCredentials: boolean;
   }>;
   interface IHttp {
     (res: THttpParams): Promise;
   }
+
+  type TFileList = (Partial<File>)[] | File[] | FileList;
+  
   interface IHandlerFile {
-    (file: File[] | FileList | null): any;
+    (file: File[] | FileList | null, fileList: TFileList): any;
   }
 
   interface IDragger {
@@ -47,15 +53,17 @@ export declare namespace ReactUploadZWC {
     data?: {
       [props: string]: any;
     };
+    withCredentials?: boolean;
     fileName?: string;
     multiple?: boolean;
     beforeUpload?: TBeforeUpload;
-    uploadSuccess?: (...rest: any[]) => any;
-    uploadFailed?: (...rest: any[]) => any;
-    fileList?: Object[];
     disabled?: boolean;
     outterClassName?: string;
     innerClassName?: string;
+    showFileList?: boolean;
+    fileList?: TFileList;
     customAction?: Function;
+    uploadSuccess?: (res: any, file: File[] | FileList | null, fileList: TFileList) => any;
+    uploadFailed?: (err: any, file: File[] | FileList | null, fileList: TFileList) => any;
   }
 }

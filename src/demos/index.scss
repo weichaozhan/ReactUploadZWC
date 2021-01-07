@@ -7,6 +7,7 @@
 }
 
 .container {
+  padding: 10px 50px;
   margin-right: 240px;
   overflow: hidden;
 }
@@ -22,7 +23,7 @@
     display: block;
     color: #314659;
     text-decoration: none;
-    transition: all .3s;
+    transition: all .5s;
     &:hover {
       color: #1890ff;
     }
@@ -30,6 +31,7 @@
 }
 
 .upload-exp {
+  width: 200px;
   padding: 8px 10px;
   color: #fff;
   background-color: #1890ff;
@@ -60,7 +62,9 @@
   border-radius: 4px;
   transition: all .5s;
   &.exp-wrapper-active {
+    border-width: 1px;
     border-color: #40a9ff;
+    box-shadow: 0 0 6px 0 #40a9ff;
   }
 
   .exp-title {

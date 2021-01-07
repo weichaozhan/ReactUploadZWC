@@ -15,6 +15,12 @@ const BaseDemo: FC = () => {
       headers={{
         'Authorization': 'test'
       }}
+      showFileList={true}
+      fileList={[
+        {
+          name: 'test'
+        }
+      ]}
       className={styles['upload-exp']}
       action="http://localhost:9001/api/upload"
       onChange={changeFiles}
@@ -46,6 +52,12 @@ const BaseDemo: FC = () => {
 
           <Upload
             className={styles['upload-exp']}
+            showFileList={true}
+            fileList={[
+              {
+                name: 'test'
+              }
+            ]}
             action="http://localhost:9001/api/upload"
             onChange={changeFiles}
             multiple={true}

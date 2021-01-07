@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { ReactUploadZWC } from '../../@types';
@@ -8,6 +8,7 @@ import styles from './Index.scss';
 import { useUploadAction } from './customHooks';
 
 import Dragger from './Dragger';
+import FileList from './FileList';
 
 type TProps = ReactUploadZWC.IUploadProps;
 
@@ -30,13 +31,21 @@ const Upload: FC<TProps> & {
   outterClassName = '',
   innerClassName = '',
   headers,
+  withCredentials,
+  customAction,
+  showFileList,
+  fileList,
   uploadFailed = (err) => err,
-  uploadSuccess = (res) => res,
-  customAction
+  uploadSuccess = (res) => res
 }) => {
   const fileInputFile: React.MutableRefObject<any> = useRef(null);
   const [beforeUploadAction] = useUploadAction(beforeUpload);
 
+  const [fileListInner, setFileListInner] = useState<ReactUploadZWC.TFileList>([]);
+
+  useEffect(() => {
+    setFileListInner(fileList ?? []);
+  }, [fileList]);
   useEffect(() => {
     (fileInputFile.current as (HTMLInputElement & {
       webkitdirectory: boolean
@@ -45,14 +54,16 @@ const Upload: FC<TProps> & {
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files?.length ? [...e.target.files] : e.target.files;
+    const fileListCurrent = [...fileListInner, ...(e.target.files ?? [])];
     
+    setFileListInner(fileListCurrent);
     uploadFiles(files);
 
     fileInputFile.current.value = '';
   };
 
   const uploadFiles = async (files: File[] | FileList | null) => {
-    onChange?.(files);
+    onChange?.(files, fileListInner);
     
     try {
       await beforeUploadAction(files);
@@ -62,7 +73,7 @@ const Upload: FC<TProps> & {
       }
 
       if (customAction) {
-        customAction(files);
+        customAction(files, fileListInner);
         return;
       }
   
@@ -76,19 +87,25 @@ const Upload: FC<TProps> & {
           headers: {
             ...headers
           },
-          multiple
+          multiple,
+          withCredentials
         })
           .then(res => {
-            uploadSuccess(res);
+            uploadSuccess(res, files, fileListInner);
           })
           .catch((err) => {
-            uploadFailed(err);
+            uploadFailed(err, files, fileListInner);
           });
       } else {
         action?.([...files]);
       }
     } catch {
     }
+  };
+
+  const clickCloseIcon = (index) => {
+    const newFiles = [...fileListInner].filter((...rest) => rest[1] !== index);
+    setFileListInner(newFiles);
   };
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -140,6 +157,10 @@ const Upload: FC<TProps> & {
         />
       </label>
     </div>
+    {showFileList && <FileList
+      fileList={fileListInner}
+      clickCloseIcon={clickCloseIcon}
+    />}
   </div>;
 };
 

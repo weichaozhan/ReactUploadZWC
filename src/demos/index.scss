@@ -58,6 +58,10 @@
   padding: 20px;
   border: 1px solid #c0c0c0;
   border-radius: 4px;
+  transition: all .5s;
+  &.exp-wrapper-active {
+    border-color: #40a9ff;
+  }
 
   .exp-title {
     padding-bottom: 12px;

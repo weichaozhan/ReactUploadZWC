@@ -1,6 +1,9 @@
-import React, { FC, ReactNode, useReducer, useRef, MutableRefObject, useEffect } from 'react';
+import React, { FC, ReactNode, useReducer, useRef, MutableRefObject, useEffect, useContext } from 'react';
+import classNames from 'classnames';
 
 import styles from './index.scss';
+
+import { DemoCxt } from './context';
 
 interface IProps {
   demo: ReactNode | ReactNode[] | string;
@@ -52,6 +55,8 @@ const DemoWrapper: FC<IProps> = ({
   const [state, dispatch] = useReducer(stateReducer, { ...stateInitial }, initState);
   const contentDom: MutableRefObject<null | HTMLDivElement> = useRef(null);
 
+  const cxt = useContext(DemoCxt);
+
   useEffect(() => {
     dispatch({
       type: 'contentHeight',
@@ -70,7 +75,7 @@ const DemoWrapper: FC<IProps> = ({
     });
   };
 
-  return <section id={anchor} className={styles['exp-wrapper']} >
+  return <section id={anchor} className={classNames(styles['exp-wrapper'], { [styles['exp-wrapper-active']]: cxt.hashActive === `#${anchor}` })} >
     <h3
       className={styles['exp-title']}
     >
@@ -83,7 +88,7 @@ const DemoWrapper: FC<IProps> = ({
 
     <div className={styles['exp-code']} >
       <div className={styles['exp-code-header']} >
-        <span className={styles['code-toggle']} onClick={clickCode} >{state.codeShow ? '隐藏' : '显示'}代码</span>
+        <div className={styles['code-toggle']} onClick={clickCode} >{state.codeShow ? '隐藏' : '显示'}代码</div>
       </div>
       
       <div

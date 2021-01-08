@@ -59,6 +59,9 @@ const http:ReactUploadZWC.IHttp = ({
         reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
       }
     };
+    xhr.onerror = () => {
+      reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
+    };
 
     if (headers) {
       Object.entries(headers).forEach((item) => {

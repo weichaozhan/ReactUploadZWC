@@ -8,7 +8,7 @@ import styles from './Index.scss';
 import { useUploadAction } from './customHooks';
 
 import Dragger from './Dragger';
-import FileList from './FileList';
+import FileList, { TFileList } from './FileList';
 
 type TProps = ReactUploadZWC.IUploadProps;
 
@@ -35,16 +35,20 @@ const Upload: FC<TProps> & {
   customAction,
   showFileList,
   fileList,
+  onChangeFileList,
   uploadFailed = (err) => err,
   uploadSuccess = (res) => res
 }) => {
   const fileInputFile: React.MutableRefObject<any> = useRef(null);
   const [beforeUploadAction] = useUploadAction(beforeUpload);
 
-  const [fileListInner, setFileListInner] = useState<ReactUploadZWC.TFileList>([]);
+  const [fileListInner, setFileListInner] = useState<TFileList>([]);
 
   useEffect(() => {
-    setFileListInner(fileList ?? []);
+    setFileListInner([...(fileList ?? [])].map(item => ({
+      file: item,
+      state: 'success'
+    })));
   }, [fileList]);
   useEffect(() => {
     (fileInputFile.current as (HTMLInputElement & {
@@ -54,16 +58,22 @@ const Upload: FC<TProps> & {
   
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files?.length ? [...e.target.files] : e.target.files;
-    const fileListCurrent = [...fileListInner, ...(e.target.files ?? [])];
+    const fileListCurrent: TFileList = fileListInner.concat([...(e.target.files ?? [])].map(item => ({
+      file: item,
+      state: 'success'
+    })));
     
-    setFileListInner(fileListCurrent);
+    if (!fileList) {
+      setFileListInner(fileListCurrent);
+    }
+    onChangeFileList?.(fileListCurrent.map(item => item.file));
     uploadFiles(files);
 
     fileInputFile.current.value = '';
   };
 
   const uploadFiles = async (files: File[] | FileList | null) => {
-    onChange?.(files, fileListInner);
+    onChange?.(files, fileListInner.map(item => item.file));
     
     try {
       await beforeUploadAction(files);
@@ -91,10 +101,10 @@ const Upload: FC<TProps> & {
           withCredentials
         })
           .then(res => {
-            uploadSuccess(res, files, fileListInner);
+            uploadSuccess(res, files, fileListInner.map(item => item.file));
           })
           .catch((err) => {
-            uploadFailed(err, files, fileListInner);
+            uploadFailed(err, files, fileListInner.map(item => item.file));
           });
       } else {
         action?.([...files]);
@@ -105,7 +115,10 @@ const Upload: FC<TProps> & {
 
   const clickCloseIcon = (index) => {
     const newFiles = [...fileListInner].filter((...rest) => rest[1] !== index);
-    setFileListInner(newFiles);
+    onChangeFileList?.(newFiles.map(item => item.file));
+    if (!fileList) {
+      setFileListInner(newFiles);
+    }
   };
 
   const onFileDrop = (e: React.DragEvent<HTMLLabelElement>) => {

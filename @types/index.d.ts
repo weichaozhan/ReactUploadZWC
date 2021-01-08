@@ -65,5 +65,6 @@ export declare namespace ReactUploadZWC {
     customAction?: Function;
     uploadSuccess?: (res: any, file: File[] | FileList | null, fileList: TFileList) => any;
     uploadFailed?: (err: any, file: File[] | FileList | null, fileList: TFileList) => any;
+    onChangeFileList?: (fileList: TFileList) => any;
   }
 }

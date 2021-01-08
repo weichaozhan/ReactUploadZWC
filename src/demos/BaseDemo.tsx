@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 
 import DemoWrapper from './DemoWrapper';
 import Code from './Code';
@@ -6,8 +6,13 @@ import Upload from '../component/Index';
 
 import styles from './index.scss';
 import { changeFiles } from './Index';
+import { ReactUploadZWC } from '../../@types';
 
 const BaseDemo: FC = () => {
+  const [files, setFiles] = useState<ReactUploadZWC.TFileList>([{
+    name: 'test'
+  }]);
+
   return <DemoWrapper
     anchor="base"
     title="基本"
@@ -16,15 +21,12 @@ const BaseDemo: FC = () => {
         'Authorization': 'test'
       }}
       showFileList={true}
-      fileList={[
-        {
-          name: 'test'
-        }
-      ]}
+      fileList={files}
       className={styles['upload-exp']}
       action="http://localhost:9001/api/upload"
       onChange={changeFiles}
       multiple={true}
+      onChangeFileList={(fileList) => setFiles(fileList)}
     >
       上传文件
     </Upload>}

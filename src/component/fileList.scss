@@ -24,6 +24,7 @@
 
   a {
     display: flex;
+    margin-right: 6px;
     align-items: center;
     
     .item-preicon {
@@ -37,12 +38,31 @@
     width: 20px;
     height: 20px;
     display: block;
-    background: url('../assets/images/correct.svg') center center no-repeat;
+    background: url('../assets/images/close.svg') center center no-repeat;
     background-size: 90%;
     transition: all .3s;
     cursor: pointer;
     &:hover {
       background-image: url('../assets/images/close.svg');
+    }
+  }
+  .item-state-loading {
+    animation: loading 1s linear infinite;
+    background-image: url('../assets/images/loading.svg');
+  }
+  .item-state-success {
+    background-image: url('../assets/images/correct.svg');
+  }
+  .item-state-failed {
+    background-image: url('../assets/images/error.svg');
+  }
+
+  @keyframes loading {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(-360deg);
     }
   }
 }

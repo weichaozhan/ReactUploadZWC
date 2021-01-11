@@ -16,7 +16,7 @@ const BaseDemo: FC = () => {
     demo={<Dragger
       width={300}
       height={300}
-      action="http://localhost:9001/api/upload"
+      action={`http://localhost:${process.env.SERVER_PORT}/api/upload`}
       onChange={changeFiles}
       beforeUpload={(files) => {
         console.log(files);

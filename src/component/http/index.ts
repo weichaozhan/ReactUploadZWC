@@ -1,5 +1,5 @@
 
-import { ReactUploadZWC } from '../../../@types';
+import { ReactUploadZWC } from '../../../@types/reactUploadZWC';
 
 export const buildFileName = (fileName: string, multiple: boolean, index: number) => {
   return `${fileName}${!multiple ? '' : index + 1}`;

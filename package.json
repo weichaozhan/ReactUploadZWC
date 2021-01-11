@@ -24,10 +24,10 @@
   "scripts": {
     "build:demo": "rimraf ./demo && cross-env NODE_ENV=production webpack --progress --config webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",
-    "dev": "cross-env NODE_ENV=development PORT=3002 webpack serve --progress --hot --color --config webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack serve --progress --hot --color --config webpack.dev.js",
     "mock": "nodemon ./mockServer/server.js",
     "lint": "./node_modules/.bin/eslint --color --cache --format=node_modules/eslint-formatter-pretty src/**/*.tsx src/**/*.ts @types/**/*.ts",
-    "start": "concurrently \"npm run mock\" \"npm run dev\"",
+    "start": "cross-env SERVER_PORT=9001 PORT=3006 concurrently \"npm run mock\" \"npm run dev\"",
     "jest-init": "jest --init",
     "test": "jest --coverage --color --watchAll",
     "link": "npm link react-upload-zwc",

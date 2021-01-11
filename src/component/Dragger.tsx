@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ReactUploadZWC } from '../../@types';
+import { ReactUploadZWC } from '../../@types/reactUploadZWC';
 
 import Upload from './Index';
 

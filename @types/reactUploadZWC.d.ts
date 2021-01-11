@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export declare namespace ReactUploadZWC {
   import { CSSProperties } from 'react';
   
@@ -62,9 +64,11 @@ export declare namespace ReactUploadZWC {
     innerClassName?: string;
     showFileList?: boolean;
     fileList?: TFileList;
+    customFileList?: ReactNode;
     customAction?: Function;
     uploadSuccess?: (res: any, file: File[] | FileList | null, fileList: TFileList) => any;
     uploadFailed?: (err: any, file: File[] | FileList | null, fileList: TFileList) => any;
     onChangeFileList?: (fileList: TFileList) => any;
+    onDeleteFile?: (fileDelete?: File, index: number, fileList?: Partial<File>[] | File[] | FileList) => any;
   }
 }

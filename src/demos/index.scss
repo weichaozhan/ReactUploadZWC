@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
 .wrapper {
   margin: 30px 10px 20px;
 }
@@ -24,8 +30,11 @@
     color: #314659;
     text-decoration: none;
     transition: all .5s;
-    &:hover {
+    &.selected {
       color: #1890ff;
+    }
+    &:hover {
+      color: #66b1ff;
     }
   }
 }
@@ -123,4 +132,26 @@
       background-color: $bg-color!important;
     }
   }
+}
+
+.fileList-demo-wrapper {
+  padding: 20px;
+  background: #ececec;
+  border-radius: 6px;
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    color: #8e8e8e;
+    font-size: 16px;
+  }
+}
+
+.custom-file-list {
+  margin-top: 12px;
+  line-height: 2;
+  color: #666;
+  font-size: 12px;
+  text-align: left;
 }

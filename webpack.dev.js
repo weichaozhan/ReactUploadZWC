@@ -58,7 +58,7 @@ webpackConfig.plugins.push(
 const configDev = {
   devServer: {
     contentBase: path.join(__dirname, 'demo'),
-    port: port,
+    port: port || 3006,
     // open: true
   },
   devtool: 'eval-source-map',

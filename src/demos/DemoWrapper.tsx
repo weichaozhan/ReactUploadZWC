@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import styles from './index.scss';
 
 import { DemoCxt } from './context';
+import { IDemoMenu } from './constants';
 
 interface IProps {
   demo: ReactNode | ReactNode[] | string;
   code: ReactNode | ReactNode[];
   title: string;
-  anchor: string;
+  anchor: IDemoMenu['hash'];
 }
 
 interface IState {

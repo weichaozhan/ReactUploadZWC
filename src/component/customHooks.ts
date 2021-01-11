@@ -1,5 +1,5 @@
 
-import { ReactUploadZWC } from '../../@types';
+import { ReactUploadZWC } from '../../@types/reactUploadZWC';
 
 export const useUploadAction = (beforeUpload?: ReactUploadZWC.TBeforeUpload) => {
   const beforeUploadAction = (files: FileList | File[] | null) => {

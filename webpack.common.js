@@ -126,7 +126,10 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.ids.HashedModuleIdsPlugin()
+    new webpack.ids.HashedModuleIdsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.SERVER_PORT': process.env.SERVER_PORT
+    })
   ],
   output: {
     filename: '[name].[fullhash].js',

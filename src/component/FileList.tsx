@@ -1,17 +1,18 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import classNames from 'classnames';
 
 import iconFile from '../assets/images/file.svg';
 
 import styles from './fileList.scss';
 
-export type TFileList = ({
+export interface IFileShow {
   file: Partial<File>;
   state?: 'loading' | 'success' | 'failed';
-})[];
+}
+export type TFileListShow = IFileShow[];
 
 interface IProps {
-  fileList: TFileList;
+  fileList: TFileListShow;
   clickCloseIcon?: (index: number, file: Partial<File>, files: IProps['fileList']) => any;
 }
 
@@ -19,15 +20,30 @@ const FileList: FC<IProps> = ({
   fileList,
   clickCloseIcon
 }) => {
-  const [files, setFiles] = useState<TFileList>([]);
-
   useEffect(() => {
-    setFiles([...fileList]);
+    // setFiles([...fileList]);
   }, [fileList]);
   
   return <ul className={styles['list-wrapper']} >
-    {files.map((element, index) => {
-      return <li key={`${index}_${element.file.lastModified}`} >
+    {fileList.map((element, index) => {
+      return <li
+        key={`${index}_${element.file.lastModified}`}
+        tabIndex={index}
+        onClick={(e) => {
+          const tagName = (e.target as HTMLElement).tagName.toUpperCase();
+          
+          if (tagName === 'I') {
+            const timeDelay = 300;
+
+            e.currentTarget.style.height = '0px';
+            e.currentTarget.style.transition = `all ${timeDelay}ms`;
+
+            setTimeout(() => {
+              clickCloseIcon?.(index, element.file, fileList);
+            }, timeDelay);
+          }
+        }}
+      >
         <a>
           <img className={styles['item-preicon']} src={iconFile} />
           {element.file.name}
@@ -42,9 +58,6 @@ const FileList: FC<IProps> = ({
               [styles['item-state-failed']]: element.state === 'failed',
             }
           )}
-          onClick={() => {
-            clickCloseIcon?.(index, element.file, files);
-          }}
         />
       </li>;
     })}

@@ -1,10 +1,13 @@
 import React, { Dispatch, FC, useEffect, useState } from 'react';
+import classNames from 'classnames';
 
-import { ReactUploadZWC } from '../../@types';
+import { ReactUploadZWC } from '../../@types/reactUploadZWC';
 import { DemoCxt, IDemoCxt } from './context';
 
 import BaseDemo from './BaseDemo';
 import DragDemo from './DragDemo';
+import FileListDemo from './FileListDemo';
+import { demoMemu } from './constants';
 
 import styles from './index.scss';
 
@@ -29,13 +32,21 @@ const Demos: FC = () => {
   return <DemoCxt.Provider value={cxt} >
     <div className={styles['wrapper']} >
       <div className={styles['menu-list']} >
-        <a href="#base" >基础</a>
-        <a href="#drag" >拖拽</a>
+        {demoMemu.map(item => <a
+          className={classNames({
+            [styles['selected']]: `#${item.hash}` === location.hash
+          })}
+          key={item.hash}
+          href={`#${item.hash}`}
+        >
+          {item.title}
+        </a>)}
       </div>
 
       <div className={styles['container']} >
         <BaseDemo/>
         <DragDemo/>
+        <FileListDemo/>
       </div>
     </div>
   </DemoCxt.Provider>;

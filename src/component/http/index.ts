@@ -15,63 +15,74 @@ const http:ReactUploadZWC.IHttp = ({
   files,
   multiple,
   headers,
-  withCredentials
+  withCredentials,
+  timeout = 5000
 }) => {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    const methodUpper = method.toUpperCase();
-    
-    let args: string | FormData;
-    let urlStr = url;
-
-    if (methodUpper === 'GET') {
-      args = '?';
-      Object.keys(data).forEach((param, index) => {
-        args += `${index === 0 ? '' : '&'}${param}=${data[param]}`;
-      });
-      urlStr = `${urlStr}${args}`;
-    } else {
-      const formData = new FormData();
+    try {
+      const xhr = new XMLHttpRequest();
+      const methodUpper = method.toUpperCase();
       
-      Object.keys(data).forEach((param) => {
-        formData.append(param, data[param]);
-      });
+      let args: string | FormData;
+      let urlStr = url;
 
-      file && formData.append(fileName, file);
-      if (files) {
-        for (let index = 0; index < files.length; index++) {
-          const file = files[index];
-          formData.append(buildFileName(fileName, !!multiple, index), file);
-
-          if (!multiple && file) {
-            break;
+      if (methodUpper === 'GET') {
+        args = '?';
+        Object.keys(data).forEach((param, index) => {
+          args += `${index === 0 ? '' : '&'}${param}=${data[param]}`;
+        });
+        urlStr = `${urlStr}${args}`;
+      } else {
+        const formData = new FormData();
+        
+        Object.keys(data).forEach((param) => {
+          formData.append(param, data[param]);
+        });
+  
+        file && formData.append(fileName, file);
+        if (files) {
+          for (let index = 0; index < files.length; index++) {
+            const file = files[index];
+            formData.append(buildFileName(fileName, !!multiple, index), file);
+  
+            if (!multiple && file) {
+              break;
+            }
           }
         }
+        args = formData;
       }
-      args = formData;
-    }
+  
+      xhr.open(methodUpper, urlStr, async);
+      
+      xhr.timeout = timeout;
 
-    xhr.open(methodUpper, urlStr, async);
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        resolve(xhr.response);
-      } else {
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
+        }
+      };
+
+      const handleError = () => {
         reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
+      };
+      xhr.onerror = handleError;
+      xhr.ontimeout = handleError;
+  
+      if (headers) {
+        Object.entries(headers).forEach((item) => {
+          xhr.setRequestHeader(item[0], item[1]);
+        });
       }
-    };
-    xhr.onerror = () => {
-      reject(new Error(`status: ${xhr.status}, statusText: ${xhr.statusText}`));
-    };
-
-    if (headers) {
-      Object.entries(headers).forEach((item) => {
-        xhr.setRequestHeader(item[0], item[1]);
-      });
+      
+      xhr.withCredentials = withCredentials ?? false;
+  
+      xhr.send(methodUpper === 'GET' ? null : args);
+    } catch(err) {
+      console.error('err', err);
     }
-    
-    xhr.withCredentials = withCredentials ?? false;
-
-    xhr.send(methodUpper === 'GET' ? null : args);
   });
 };
 

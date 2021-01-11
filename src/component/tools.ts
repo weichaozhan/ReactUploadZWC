@@ -17,7 +17,7 @@ export const getNewFileListState = (newFileList: TFileListShow, preFileList: TFi
   return list;
 };
 
-export const uploadFilesAction: (args: Pick<ReactUploadZWC.IUploadProps, 'fileName' | 'data' | 'multiple' | 'headers' | 'withCredentials' | 'uploadSuccess' | 'uploadFailed'> & {
+export const uploadFilesAction: (args: Pick<ReactUploadZWC.IUploadProps, 'fileName' | 'data' | 'multiple' | 'headers' | 'withCredentials' | 'uploadSuccess' | 'timeout' | 'uploadFailed'> & {
   files: File[] | FileList;
   action: string;
   fileListInner: TFileListShow;
@@ -35,6 +35,7 @@ export const uploadFilesAction: (args: Pick<ReactUploadZWC.IUploadProps, 'fileNa
   fileListInner,
   uploadSuccess,
   uploadFailed,
+  timeout,
   setFileListInner
 }) => {
   http({
@@ -47,6 +48,7 @@ export const uploadFilesAction: (args: Pick<ReactUploadZWC.IUploadProps, 'fileNa
       ...headers
     },
     multiple,
+    timeout,
     withCredentials
   })
     .then(res => {

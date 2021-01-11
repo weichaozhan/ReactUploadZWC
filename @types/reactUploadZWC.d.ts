@@ -20,6 +20,7 @@ export declare namespace ReactUploadZWC {
     fileName: string;
     multiple: boolean;
     withCredentials: boolean;
+    timeout?: number;
   }>;
   interface IHttp {
     (res: THttpParams): Promise;
@@ -65,6 +66,7 @@ export declare namespace ReactUploadZWC {
     showFileList?: boolean;
     fileList?: TFileList;
     customFileList?: ReactNode;
+    timeout?: number;
     customAction?: Function;
     uploadSuccess?: (res: any, file: File[] | FileList | null, fileList: TFileList) => any;
     uploadFailed?: (err: any, file: File[] | FileList | null, fileList: TFileList) => any;

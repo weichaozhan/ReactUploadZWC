@@ -35,6 +35,7 @@ const Upload: FC<TProps> & {
   customAction,
   showFileList,
   fileList,
+  timeout = 5000,
   customFileList,
   onChangeFileList,
   onDeleteFile,
@@ -117,7 +118,8 @@ const Upload: FC<TProps> & {
           fileListInner,
           uploadSuccess,
           uploadFailed,
-          setFileListInner
+          setFileListInner,
+          timeout
         });
       } else {
         action?.([...files]);

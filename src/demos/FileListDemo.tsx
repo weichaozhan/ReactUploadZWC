@@ -52,9 +52,6 @@ const FileListDemo: FC = () => {
         </h3>
 
         <Upload
-          headers={{
-            'Authorization': 'test'
-          }}
           showFileList={true}
           fileList={files}
           className={styles['upload-exp']}
@@ -151,9 +148,6 @@ const FileListDemo: FC = () => {
 
           // 设置可控文件列表
           <Upload
-            headers={{
-              'Authorization': 'test'
-            }}
             showFileList={true}
             fileList={files}
             className={styles['upload-exp']}

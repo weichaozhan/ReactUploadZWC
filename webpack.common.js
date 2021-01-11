@@ -128,7 +128,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ids.HashedModuleIdsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.SERVER_PORT': process.env.SERVER_PORT
+      'process.env.SERVER_PORT': process.env.SERVER_PORT ?? 9001
     })
   ],
   output: {

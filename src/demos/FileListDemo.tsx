@@ -16,7 +16,6 @@ const FileListDemo: FC = () => {
     name: 'filesCustom.test'
   }]);
 
-  console.log('filesCustom', filesCustom);
   return <DemoWrapper
     anchor="fileList"
     title="基本"
@@ -30,6 +29,11 @@ const FileListDemo: FC = () => {
           headers={{
             'Authorization': 'test'
           }}
+          defaultFileList={[
+            {
+              name: 'defaultFileList'
+            }
+          ]}
           showFileList={true}
           className={styles['upload-exp']}
           action={`http://localhost:${process.env.SERVER_PORT}/api/upload`}
@@ -131,6 +135,11 @@ const FileListDemo: FC = () => {
             headers={{
               'Authorization': 'test'
             }}
+            defaultFileList={[
+              {
+                name: 'defaultFileList'
+              }
+            ]}
             showFileList={true}
             className={styles['upload-exp']}
             action="http://localhost:port/api/upload"

@@ -12,7 +12,7 @@ const port = process.env.SERVER_PORT || 9001;
 
 // 跨域处理
 app.use(CORS({
-  origin: `http://localhost:${process.env.PORT}`,
+  origin: `http://localhost:${process.env.PORT ?? 3006}`,
   credentials: true,
   allowMethods: [
       'GET',

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { ReactUploadZWC } from '../../@types/reactUploadZWC';
 
 import styles from './Index.scss';
-import { useUploadAction } from './customHooks';
-import { getNewFileListState, uploadFilesAction } from './tools';
+import { useUploadAction, useUpload } from './customHooks';
+import { getNewFileListState, buildFileListShowFromFileList } from './tools';
 
 import Dragger from './Dragger';
 import FileList, { TFileListShow } from './FileList';
@@ -37,6 +37,7 @@ const Upload: FC<TProps> & {
   fileList,
   timeout = 5000,
   customFileList,
+  defaultFileList,
   onChangeFileList,
   onDeleteFile,
   uploadFailed = (err) => err,
@@ -45,20 +46,19 @@ const Upload: FC<TProps> & {
   const fileInputFile: React.MutableRefObject<any> = useRef(null);
   const [beforeUploadAction] = useUploadAction(beforeUpload);
 
-  const [fileListInner, setFileListInner] = useState<TFileListShow>([]);
+  const [fileListInner, setFileListInner] = useState<TFileListShow>([...(defaultFileList ?? [])].map(item => ({
+    file: item,
+    state: 'success'
+  })));
   const fileListInnerCurrent = useRef<TFileListShow>(fileListInner);
+  const indexDelete = useRef<number[]>([]);
+  const [newFileList, uploadFileRequest] = useUpload();
 
   useEffect(() => {
-    const newList = [...(fileList ?? [])].map(item => {
-      const preFile = fileListInnerCurrent.current.filter(file => {
-        return file.file === item;
-      })[0];
-      return {
-        file: item,
-        state: preFile?.state ? preFile?.state : 'success'
-      };
-    });
-    setFileListInner(newList);
+    if (fileList) {
+      setFileListInner(buildFileListShowFromFileList(fileList, fileListInnerCurrent.current, indexDelete.current));
+      indexDelete.current = [];
+    }
   }, [fileList]);
   useEffect(() => {
     fileListInnerCurrent.current = fileListInner;
@@ -98,28 +98,27 @@ const Upload: FC<TProps> & {
         return;
       }
   
-      const newFileList: TFileListShow = fileListInner.concat(Array.prototype.map.call(files, item => ({
+      newFileList.current = fileListInner.concat(Array.prototype.map.call(files, item => ({
         file: item
       })) as TFileListShow);
       setFileListInner(
-        getNewFileListState(newFileList, fileListInner, 'loading')
+        getNewFileListState(newFileList.current, fileListInner, 'loading')
       );
 
       if (typeof action === 'string') {
-        uploadFilesAction({
-          action: action as string,
-          fileName,
-          data,
-          multiple,
-          headers,
-          withCredentials,
+        uploadFileRequest({
+          action,
           files,
-          newFileList,
-          fileListInner,
-          uploadSuccess,
-          uploadFailed,
+          data,
+          fileName,
+          headers,
+          multiple,
+          withCredentials,
+          timeout,
           setFileListInner,
-          timeout
+          uploadFailed,
+          uploadSuccess,
+          fileListInner
         });
       } else {
         action?.([...files]);
@@ -135,6 +134,7 @@ const Upload: FC<TProps> & {
     onChangeFileList?.(files);
     
     onDeleteFile?.(fileDelete, index, files);
+    indexDelete.current = [index];
     if (!fileList) {
       setFileListInner(newFiles);
     }

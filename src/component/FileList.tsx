@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 
 import iconFile from '../assets/images/file.svg';
@@ -20,14 +20,10 @@ const FileList: FC<IProps> = ({
   fileList,
   clickCloseIcon
 }) => {
-  useEffect(() => {
-    // setFiles([...fileList]);
-  }, [fileList]);
-  
   return <ul className={styles['list-wrapper']} >
     {fileList.map((element, index) => {
       return <li
-        key={`${index}_${element.file.lastModified}`}
+        key={`${index}_${element.file.lastModified}_${Date.now()}`}
         tabIndex={index}
         onClick={(e) => {
           const tagName = (e.target as HTMLElement).tagName.toUpperCase();

@@ -46,7 +46,7 @@
     cursor: pointer;
   }
   .item-state-loading {
-    background-image: url('../assets/images/loading.svg');
+    background-image: url('../assets/images/loading.svg') !important;
     background-size: 70%;
     animation: loading 1s linear infinite;
   }

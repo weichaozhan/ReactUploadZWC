@@ -67,6 +67,7 @@ export declare namespace ReactUploadZWC {
     fileList?: TFileList;
     customFileList?: ReactNode;
     timeout?: number;
+    defaultFileList?: TFileList;
     customAction?: Function;
     uploadSuccess?: (res: any, file: File[] | FileList | null, fileList: TFileList) => any;
     uploadFailed?: (err: any, file: File[] | FileList | null, fileList: TFileList) => any;

@@ -9,7 +9,7 @@ import { changeFiles } from './Index';
 
 const { Dragger } = Upload;
 
-const BaseDemo: FC = () => {
+const DragDemo: FC = () => {
   return <DemoWrapper
     anchor="drag"
     title="拖拽文件"
@@ -105,4 +105,4 @@ const BaseDemo: FC = () => {
   />;
 };
 
-export default BaseDemo;
+export default DragDemo;
